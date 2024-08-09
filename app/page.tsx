@@ -1,5 +1,6 @@
 import { Main } from "@/components/layout/mainwrapper";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -10,7 +11,9 @@ export default function Home() {
         productivity.
       </p>
 
-      <Button>Click me!</Button>
+      <Button asChild>
+        <Link href="/components">Go to components</Link>
+      </Button>
     </Main>
   );
 }
