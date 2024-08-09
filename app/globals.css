@@ -66,5 +66,6 @@
 
   body {
     @apply h-[100dvh] overflow-y-scroll bg-background text-foreground;
+    font-feature-settings: "ss01" on;
   }
 }
