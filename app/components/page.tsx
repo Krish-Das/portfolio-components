@@ -1,12 +1,14 @@
 import { Main } from "@/components/layout/mainwrapper";
-import { Button } from "./RacButton";
+// import { Button } from "./RacButton";
+import { Dialog } from "./DeleteDialog";
 
 export default function ComponentPage() {
   return (
     <>
       <Main>
         <div className="wrapper__button">
-          <Button />
+          {/* <Button /> */}
+          <Dialog />
         </div>
       </Main>
     </>
