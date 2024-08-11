@@ -22,6 +22,10 @@ export const Dialog = () => {
                   </p>
                 </div>
 
+                {/*TODO: Build the button api like the following */}
+                {/* <DialogCancel className= "custom-class" onPress={close}>Close</DialogCancel> */}
+                {/* <DialogAction className= "custom-class" onPress={() => {console.log()}}>Delete</DialogAction> */}
+
                 <div className="flex">
                   <Button
                     onPress={close}
