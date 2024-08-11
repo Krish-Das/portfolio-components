@@ -6,24 +6,38 @@ import { Heading } from "react-aria-components";
 
 export const Dialog = () => {
   return (
-    <DialogTrigger>
-      <Button>Open</Button>
-      <DialogModal>
-        <DialogContent>
-          {({ close }) => (
-            <>
-              <Heading className="text-lg font-bold">
-                Payment Successfull
-              </Heading>
-              <p className="text-fg-3 text-sm">
-                Your order has been placed. Check your email for order details!
-              </p>
+    <>
+      <DialogTrigger>
+        <Button>Open</Button>
+        <DialogModal className="w-full">
+          <DialogContent className="overflow-hidden rounded-3xl bg-background/90 backdrop-blur">
+            {({ close }) => (
+              <>
+                <div className="space-y-2 p-4 py-8 pt-7 text-center">
+                  <Heading className="text-xl font-bold tracking-[-0.01em]">
+                    Delete your account
+                  </Heading>
+                  <p className="text-sm">
+                    Caution, this action cannot be undone!
+                  </p>
+                </div>
 
-              <Button onPress={close}>Cancel</Button>
-            </>
-          )}
-        </DialogContent>
-      </DialogModal>
-    </DialogTrigger>
+                <div className="flex">
+                  <Button
+                    onPress={close}
+                    className="w-full border-t border-foreground/5 p-4 font-medium text-gray-500"
+                  >
+                    Cancel
+                  </Button>
+                  <Button className="w-full border-l border-t border-foreground/5 p-4 font-medium text-destructive">
+                    Delete
+                  </Button>
+                </div>
+              </>
+            )}
+          </DialogContent>
+        </DialogModal>
+      </DialogTrigger>
+    </>
   );
 };
