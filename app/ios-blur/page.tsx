@@ -17,19 +17,18 @@ export default function ComponentPage() {
           </div>
 
           {/* --- Videos  */}
-          <ColImage className="bg-[url('https://i.pinimg.com/564x/9e/94/82/9e948281c4311add20d0aecc6e3f3931.jpg')]">
-            <div className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-white/5 bg-white/30 pl-1 text-3xl backdrop-blur-xl">
+          <ColImage className="bg-[url('https://i.pinimg.com/564x/23/e8/3f/23e83f2279ea3700c1703b6effe35ba1.jpg')]">
+            <div className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-white/5 bg-[#424245]/30 pl-1 text-3xl backdrop-blur-xl">
               <IoPlay />
             </div>
           </ColImage>
 
-          <ColImage className="bg-[url('https://i.pinimg.com/564x/23/e8/3f/23e83f2279ea3700c1703b6effe35ba1.jpg')]" />
+          {/* --- Images  */}
           <ColImage className="bg-[url('https://i.pinimg.com/564x/a6/61/0a/a6610aa8cea8a8a696a1564f05190790.jpg')]" />
 
-          {/* --- Images  */}
           <div className="inline-flex w-full items-center gap-4">
             <ColImage className="bg-[url('https://i.pinimg.com/564x/23/e8/3f/23e83f2279ea3700c1703b6effe35ba1.jpg')]" />
-            <ColImage className="bg-[url('https://i.pinimg.com/564x/a6/61/0a/a6610aa8cea8a8a696a1564f05190790.jpg')]" />
+            <ColImage className="bg-[url('https://i.pinimg.com/564x/9e/94/82/9e948281c4311add20d0aecc6e3f3931.jpg')]" />
           </div>
         </div>
 
