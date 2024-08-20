@@ -1,9 +1,13 @@
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { IoPlay } from "react-icons/io5";
-import { RiArrowRightDownLine } from "react-icons/ri";
+import { Button } from "@/components/ui/button";
 
-const ButtonDefault = ({ className }: { className?: string }) => {
+const ButtonDefault = ({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) => {
   return (
     <Button
       className={cn(
@@ -11,12 +15,18 @@ const ButtonDefault = ({ className }: { className?: string }) => {
         className,
       )}
     >
-      Enter <RiArrowRightDownLine />
+      {children}
     </Button>
   );
 };
 
-const ButtonSmall = ({ className }: { className?: string }) => {
+const ButtonSmall = ({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) => {
   return (
     <Button
       className={cn(
@@ -24,7 +34,7 @@ const ButtonSmall = ({ className }: { className?: string }) => {
         className,
       )}
     >
-      Enter <IoPlay size={10} />
+      {children}
     </Button>
   );
 };
