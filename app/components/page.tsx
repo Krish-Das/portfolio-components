@@ -9,7 +9,7 @@ export default function ComponentPage() {
     <>
       <Main>
         <div className="wrapper__paragraph py-4">
-          <ParagraphDefault />
+          {/* <ParagraphDefault /> */}
         </div>
 
         <div className="wrapper__button">

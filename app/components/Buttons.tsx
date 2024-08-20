@@ -11,7 +11,9 @@ const ButtonDefault = ({
   return (
     <Button
       className={cn(
-        "inline-flex h-9 items-center justify-center gap-1 rounded-full bg-foreground px-5 font-[400] leading-none text-background",
+        "inline-flex items-center justify-center gap-1 rounded-full bg-foreground px-5 font-[400] leading-none text-background",
+        "h-12 min-w-12", // Base size
+        "sm:h-9 sm:min-h-9", // tablet/desktop
         className,
       )}
     >
@@ -30,7 +32,9 @@ const ButtonSmall = ({
   return (
     <Button
       className={cn(
-        "inline-flex h-8 items-center justify-center gap-1 rounded-full bg-foreground px-4 font-[400] leading-none text-background",
+        "inline-flex items-center justify-center gap-1 rounded-full bg-foreground px-4 font-[400] leading-none text-background",
+        "h-10 min-w-10", // Base size
+        "sm:h-8 sm:min-h-8", // tablet/desktop
         className,
       )}
     >
