@@ -20,6 +20,7 @@ const RacRadixButton = ({
     <button
       className={cn(
         "bg-[#424245]s inline-flex h-20 w-20 items-center justify-center gap-2 rounded-full bg-[#353336] text-xl text-foreground",
+        "touch-none select-none",
         className,
       )}
       onClick={onClick}
