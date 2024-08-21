@@ -1,21 +1,20 @@
 "use client";
 
-import { ButtonHTMLAttributes, useRef } from "react";
+import { ButtonHTMLAttributes, forwardRef, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { useButton } from "@react-aria/button";
 import { FocusRing } from "@react-aria/focus";
 import { MotionProps, motion, useAnimation } from "framer-motion";
 
-const RacRadixButton = ({
-  children,
-  className,
-  onClick,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
-}) => {
-  const ref = useRef<HTMLButtonElement | null>(null);
+const RacRadixButton = forwardRef<
+  HTMLButtonElement,
+  {
+    children: React.ReactNode;
+    className?: string;
+    onClick?: () => void;
+  }
+>(({ children, className, onClick }, ref) => {
+  const localRef = useRef<HTMLButtonElement | null>(null);
   const { buttonProps } = useButton(
     {
       onPressStart: () => {
@@ -27,7 +26,7 @@ const RacRadixButton = ({
       },
       onPress: onClick,
     },
-    ref,
+    localRef,
   );
   const controls = useAnimation();
 
@@ -52,7 +51,7 @@ const RacRadixButton = ({
       </motion.button>
     </FocusRing>
   );
-};
+});
 
-RacRadixButton.displayname = "button";
+RacRadixButton.displayName = "button";
 export { RacRadixButton };

@@ -18,7 +18,7 @@ export default function ComposidModal() {
     <>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <RacRadixButton>Yolo</RacRadixButton>
+          <RacRadixButton>Open</RacRadixButton>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -34,10 +34,6 @@ export default function ComposidModal() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
-      <RacRadixButton onClick={() => alert("something!")}>
-        Click me
-      </RacRadixButton>
     </>
   );
 }
