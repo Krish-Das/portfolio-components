@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { RacRadixButton } from "./RacRadixButton";
-import { ImAppleinc } from "react-icons/im";
+import { HiOutlineDownload } from "react-icons/hi";
 
 export default function ButtonLab() {
   const [number, setNumber] = useState(0);
@@ -15,7 +15,7 @@ export default function ButtonLab() {
         <RacRadixButton
           onClick={() => setNumber(Math.round(Math.random() * 100))}
         >
-          <ImAppleinc />
+          <HiOutlineDownload /> Download
         </RacRadixButton>
       </div>
     </>
