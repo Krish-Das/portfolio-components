@@ -1,3 +1,5 @@
+"use client";
+
 import { Main } from "@/components/layout/mainwrapper";
 import { RacRadixButton } from "./RacRadixButton";
 // import { ButtonDefault, ButtonSmall } from "./Buttons";
@@ -22,7 +24,9 @@ export default function ComponentPage() {
           {/*   Small <IoPlay size={10} /> */}
           {/* </ButtonSmall> */}
 
-          <RacRadixButton>Click me</RacRadixButton>
+          <RacRadixButton onClick={() => alert("something!")}>
+            Click me
+          </RacRadixButton>
         </div>
       </Main>
     </>
