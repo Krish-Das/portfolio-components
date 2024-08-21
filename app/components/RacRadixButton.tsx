@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { useButton } from "@react-aria/button";
 import { useRef } from "react";
@@ -17,7 +19,7 @@ const RacRadixButton = ({
   return (
     <button
       className={cn(
-        "inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-3 text-sm text-background",
+        "inline-flex h-16 w-16 items-center justify-center gap-2 rounded-full bg-foreground text-xl text-background",
         className,
       )}
       onClick={onClick}
