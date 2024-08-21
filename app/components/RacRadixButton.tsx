@@ -36,9 +36,11 @@ const RacRadixButton = forwardRef<
       <motion.button
         style={{ WebkitTapHighlightColor: "transparent" }}
         className={cn(
-          "inline-flex h-20 w-20 items-center justify-center gap-2 rounded-full bg-[#353336] text-xl text-foreground",
+          "inline-flex items-center justify-center gap-1 rounded-full bg-[#353336] px-5 leading-none tracking-[0.01em] text-foreground",
           "focus:outline-none",
-          "touch-none select-none",
+          "touch-none select-none", // Disable select
+          "h-12 min-w-12 text-base", // Base size
+          "sm:h-9 sm:min-h-9 sm:text-sm", // tablet/desktop
           className,
         )}
         animate={controls}
