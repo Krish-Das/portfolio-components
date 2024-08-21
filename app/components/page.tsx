@@ -1,7 +1,5 @@
-"use client";
-
 import { Main } from "@/components/layout/mainwrapper";
-import { RacRadixButton } from "./RacRadixButton";
+import ComposidModal from "./ComposidModal";
 // import { ButtonDefault, ButtonSmall } from "./Buttons";
 // import { ParagraphDefault } from "./Paragraphs";
 // import { RiArrowRightDownLine } from "react-icons/ri";
@@ -24,9 +22,7 @@ export default function ComponentPage() {
           {/*   Small <IoPlay size={10} /> */}
           {/* </ButtonSmall> */}
 
-          <RacRadixButton onClick={() => alert("something!")}>
-            Click me
-          </RacRadixButton>
+          <ComposidModal />
         </div>
       </Main>
     </>
