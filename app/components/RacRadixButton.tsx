@@ -1,4 +1,6 @@
 import { cn } from "@/lib/utils";
+import { useButton } from "@react-aria/button";
+import { useRef } from "react";
 
 const RacRadixButton = ({
   children,
@@ -9,6 +11,9 @@ const RacRadixButton = ({
   className?: string;
   onClick?: () => void;
 }) => {
+  const ref = useRef<HTMLButtonElement | null>(null);
+  const { buttonProps } = useButton({ onPress: onClick }, ref);
+
   return (
     <button
       className={cn(
@@ -16,6 +21,8 @@ const RacRadixButton = ({
         className,
       )}
       onClick={onClick}
+      {...buttonProps}
+      ref={ref}
     >
       {children}
     </button>
