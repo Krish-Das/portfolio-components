@@ -13,7 +13,7 @@ import {
 
 import { RacRadixButton } from "./RacRadixButton";
 
-export default function ComposidModal() {
+export default function CompositModal() {
   return (
     <>
       <AlertDialog>

@@ -1,6 +1,6 @@
 import { Main } from "@/components/layout/mainwrapper";
 import ButtonLab from "./ButtonLab";
-import ComposidModal from "./ComposidModal";
+import CompositModal from "./CompositModal";
 // import { ButtonDefault, ButtonSmall } from "./Buttons";
 // import { ParagraphDefault } from "./Paragraphs";
 // import { RiArrowRightDownLine } from "react-icons/ri";
@@ -23,7 +23,7 @@ export default function ComponentPage() {
           {/*   Small <IoPlay size={10} /> */}
           {/* </ButtonSmall> */}
 
-          <ComposidModal />
+          <CompositModal />
           <ButtonLab />
         </div>
       </Main>
