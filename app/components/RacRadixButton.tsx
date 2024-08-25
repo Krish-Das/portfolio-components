@@ -22,7 +22,7 @@ const RacRadixButton = forwardRef<
         controls.set({ background: "#757376" });
       },
       onPressEnd: () => {
-        controls.start({ background: ["#757376", "#353336"] });
+        controls.start({ background: "#353336" });
       },
       onPress: onClick,
     },
