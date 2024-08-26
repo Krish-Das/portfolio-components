@@ -3,10 +3,10 @@
 import React, { ButtonHTMLAttributes, forwardRef, useRef } from "react";
 
 import { cn } from "@/lib/utils";
-import { cva, type VariantProps } from "class-variance-authority";
-import { useButton, AriaButtonProps } from "@react-aria/button";
 import { FocusRing } from "@react-aria/focus";
+import { useButton, AriaButtonProps } from "@react-aria/button";
 import { MotionProps, motion, useAnimation } from "framer-motion";
+import { cva, type VariantProps } from "class-variance-authority";
 
 const buttonVariants = cva(
   [
@@ -21,7 +21,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-[#353336] text-foreground",
-        destructive: "bg-destructive text-foreground",
+        destructive: "bg-[#FF453A] text-foreground",
       },
     },
     defaultVariants: {
@@ -36,20 +36,40 @@ type ButtonProps = AriaButtonProps &
     onClick?: () => void;
   };
 
+const getAnimationColors = (
+  variant: VariantProps<typeof buttonVariants>["variant"],
+) => {
+  const defaultBgStart = "#757376";
+  const defaultBgEnd = "#353336";
+
+  switch (variant) {
+    case "default":
+      return { backgroundStart: defaultBgStart, backgroundEnd: defaultBgEnd };
+
+    case "destructive":
+      return { backgroundStart: "#FF6861", backgroundEnd: "#FF453A" };
+
+    default:
+      return { backgroundStart: defaultBgStart, backgroundEnd: defaultBgEnd };
+  }
+};
+
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, className, onClick, variant, ...props }, ref) => {
     const domRef = useRef<HTMLButtonElement>(null);
     const localRef = ref || domRef;
     const controls = useAnimation();
 
+    const animationColors = getAnimationColors(variant);
+
     const { buttonProps } = useButton(
       {
         onPressStart: () => {
           controls.stop();
-          controls.set({ background: "#757376" });
+          controls.set({ background: animationColors.backgroundStart });
         },
         onPressEnd: () => {
-          controls.start({ background: "#353336" });
+          controls.start({ background: animationColors.backgroundEnd });
         },
         onPress: onClick,
         ...props,
