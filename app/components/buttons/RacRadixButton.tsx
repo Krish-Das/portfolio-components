@@ -6,14 +6,38 @@ import { cn } from "@/lib/utils";
 import { FocusRing } from "@react-aria/focus";
 import { useButton, AriaButtonProps } from "@react-aria/button";
 import { MotionProps, motion, useAnimation } from "framer-motion";
+import { cva, type VariantProps } from "class-variance-authority";
 
-type ButtonProps = AriaButtonProps & {
-  className?: string;
-  onClick?: () => void;
-};
+const buttonVariants = cva(
+  [
+    "inline-flex items-center justify-center gap-1 rounded-full px-5 leading-none tracking-[0.01em] whitespace-nowrap",
+    "disabled:pointer-events-none disabled:opacity-50", // Button Disabled
+    "focus:outline-none focus-visible:outline-none",
+    "touch-none select-none", // Disable select
+    "h-12 min-w-12 text-base", // Base size
+    "sm:h-9 sm:min-h-9 sm:text-sm", // tablet/desktop
+  ],
+  {
+    variants: {
+      variant: {
+        default: "bg-[#353336] text-foreground",
+        destructive: "bg-destructive text-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+);
+
+type ButtonProps = AriaButtonProps &
+  VariantProps<typeof buttonVariants> & {
+    className?: string;
+    onClick?: () => void;
+  };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, className, onClick, ...props }, ref) => {
+  ({ children, className, onClick, variant, ...props }, ref) => {
     const domRef = useRef<HTMLButtonElement>(null);
     const localRef = ref || domRef;
     const controls = useAnimation();
@@ -39,14 +63,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {...(buttonProps as ButtonHTMLAttributes<HTMLButtonElement> &
             MotionProps)}
           animate={controls}
-          className={cn(
-            "inline-flex items-center justify-center gap-1 rounded-full bg-[#353336] px-5 leading-none tracking-[0.01em] text-foreground",
-            "focus:outline-none",
-            "touch-none select-none", // Disable select
-            "h-12 min-w-12 text-base", // Base size
-            "sm:h-9 sm:min-h-9 sm:text-sm", // tablet/desktop
-            className,
-          )}
+          className={cn(buttonVariants({ variant, className }))}
           ref={localRef}
         >
           {children}
