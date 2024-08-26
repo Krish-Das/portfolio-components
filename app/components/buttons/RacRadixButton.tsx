@@ -36,7 +36,9 @@ type ButtonProps = AriaButtonProps &
     onClick?: () => void;
   };
 
-const getAnimationColors = (variant: string | null | undefined) => {
+const getAnimationColors = (
+  variant: VariantProps<typeof buttonVariants>["variant"],
+) => {
   const defaultBgStart = "#757376";
   const defaultBgEnd = "#353336";
 
