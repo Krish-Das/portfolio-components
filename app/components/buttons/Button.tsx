@@ -10,12 +10,10 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 const buttonVariants = cva(
   [
-    "inline-flex items-center justify-center gap-1 rounded-full px-5 leading-none tracking-[0.01em] whitespace-nowrap",
-    "disabled:pointer-events-none disabled:opacity-50", // Button Disabled
+    "inline-flex gap-2 items-center justify-center rounded-full px-5 leading-none tracking-[0.01em] whitespace-nowrap",
     "focus:outline-none focus-visible:outline-none",
+    "disabled:pointer-events-none disabled:opacity-50", // Button Disabled
     "touch-none select-none", // Disable select
-    "h-12 text-base", // Base size
-    "sm:h-9 sm:text-sm", // tablet/desktop
   ],
   {
     variants: {
@@ -23,9 +21,16 @@ const buttonVariants = cva(
         default: "bg-[#353336] text-foreground",
         destructive: "bg-[#FF453A] text-foreground",
       },
+      size: {
+        default: "h-12 sm:h-9 text-base sm:text-sm",
+        sm: "gap-1 h-10 sm:h-8 px-4 text-sm",
+        lg: "h-14 sm:h-11 text-base sm:text-sm",
+        icon: "h-14 w-14 p-0 sm:h-9 sm:w-9 min-w-9 text-xl sm:text-base",
+      },
     },
     defaultVariants: {
       variant: "default",
+      size: "default",
     },
   },
 );
@@ -55,7 +60,7 @@ const getAnimationColors = (
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, className, onClick, variant, ...props }, ref) => {
+  ({ children, className, onClick, variant, size, ...props }, ref) => {
     const domRef = useRef<HTMLButtonElement>(null);
     const localRef = ref || domRef;
     const controls = useAnimation();
@@ -83,7 +88,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {...(buttonProps as ButtonHTMLAttributes<HTMLButtonElement> &
             MotionProps)}
           animate={controls}
-          className={cn(buttonVariants({ variant, className }))}
+          className={cn(buttonVariants({ variant, size, className }))}
           ref={localRef}
         >
           {children}
