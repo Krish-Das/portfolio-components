@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { RacRadixButton } from "./buttons/RacRadixButton";
 import { IoLogoGoogle } from "react-icons/io";
-import { HiOutlineDownload } from "react-icons/hi";
+import { IoMdOpen } from "react-icons/io";
 import { Button as TestButton } from "./buttons/Button";
 
 export default function ButtonLab() {
@@ -13,15 +12,16 @@ export default function ButtonLab() {
     <>
       <Display number={number} />
 
-      <div className="mt-5 inline-flex h-[70dvh] w-full items-center justify-center gap-2">
-        <RacRadixButton
-          onClick={() => setNumber(Math.round(Math.random() * 100))}
-        >
-          <HiOutlineDownload /> Download
-        </RacRadixButton>
-
+      <div className="mt-5 inline-flex h-[70dvh] w-full flex-wrap items-center justify-center gap-1">
         <TestButton onClick={() => setNumber(Math.round(Math.random() * 100))}>
-          <IoLogoGoogle /> Google
+          <IoMdOpen /> Open
+        </TestButton>
+
+        <TestButton
+          onClick={() => setNumber(Math.round(Math.random() * 100))}
+          size="icon"
+        >
+          <IoLogoGoogle />
         </TestButton>
       </div>
     </>
