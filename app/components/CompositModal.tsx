@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import { RacRadixButton } from "./RacRadixButton";
+import { RacRadixButton } from "./buttons/RacRadixButton";
 
 export default function CompositModal() {
   return (

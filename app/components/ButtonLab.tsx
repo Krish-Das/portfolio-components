@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { RacRadixButton } from "./RacRadixButton";
+import { RacRadixButton } from "./buttons/RacRadixButton";
 import { IoLogoGoogle } from "react-icons/io";
 import { HiOutlineDownload } from "react-icons/hi";
-import { Button as TestButton } from "./TestButton";
+import { Button as TestButton } from "./buttons/Button";
 
 export default function ButtonLab() {
   const [number, setNumber] = useState(0);
