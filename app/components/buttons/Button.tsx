@@ -14,8 +14,8 @@ const buttonVariants = cva(
     "disabled:pointer-events-none disabled:opacity-50", // Button Disabled
     "focus:outline-none focus-visible:outline-none",
     "touch-none select-none", // Disable select
-    "h-12 min-w-12 text-base", // Base size
-    "sm:h-9 sm:min-h-9 sm:text-sm", // tablet/desktop
+    "h-12 text-base", // Base size
+    "sm:h-9 sm:text-sm", // tablet/desktop
   ],
   {
     variants: {
