@@ -13,51 +13,25 @@ export default function ButtonLab() {
       </div>
 
       <div className="inline-flex w-full gap-2 overflow-x-scroll p-10">
-        <RacRadButton>
-          <IoMdSend /> Send
-        </RacRadButton>
-
-        <RacRadButton>
-          <IoMdSend /> Send
-        </RacRadButton>
-
-        <RacRadButton>
-          <IoMdSend /> Send
-        </RacRadButton>
-
-        <RacRadButton>
-          <IoMdSend /> Send
-        </RacRadButton>
-
-        <RacRadButton>
-          <IoMdSend /> Send
-        </RacRadButton>
-      </div>
-
-      <div className="sinline-flex mt-5 hidden h-[70dvh] w-full flex-wrap items-center justify-center gap-1">
-        <RacRadButton variant="default">
-          <IoMdSend /> Send
-        </RacRadButton>
-
-        <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 leading-none tracking-[0.01em]">
+        <RacRadButton className="bg-[#36343B] text-[#E6E0E9]">
           <IoMdSend /> Default
-        </div>
+        </RacRadButton>
 
-        <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 leading-none tracking-[0.01em]">
+        <RacRadButton className="bg-[#D0BCFF] text-[#381E72]">
           <IoMdSend /> Primary
-        </div>
+        </RacRadButton>
 
-        <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 leading-none tracking-[0.01em]">
+        <RacRadButton className="bg-[#6750A4] text-[EADDFF]">
           <IoMdSend /> Secondary
-        </div>
+        </RacRadButton>
 
-        <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 leading-none tracking-[0.01em]">
+        <RacRadButton className="border border-[#322F35] bg-[#00000000] text-[#D0BCFF]">
           <IoMdSend /> Outlined
-        </div>
+        </RacRadButton>
 
-        <div className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 leading-none tracking-[0.01em]">
+        <RacRadButton className="bg-[#00000000] text-[#D0BCFF]">
           <IoMdSend /> Ghost
-        </div>
+        </RacRadButton>
       </div>
     </>
   );
