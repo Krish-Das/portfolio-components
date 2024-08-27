@@ -9,7 +9,7 @@ import ButtonLab from "./ButtonLab";
 export default function ComponentPage() {
   return (
     <>
-      <Main className="dark min-h-[100dvh] bg-background text-foreground">
+      <Main className="dark min-h-[100dvh] bg-[#141218] text-[#E6E0E9]">
         <div className="wrapper__paragraph py-4">
           {/* <ParagraphDefault /> */}
         </div>
