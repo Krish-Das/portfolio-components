@@ -8,8 +8,11 @@ import {
   Button as RacButton,
   ButtonProps as RacButtonProps,
 } from "react-aria-components";
+import { motion, MotionProps } from "framer-motion";
 
-type ButtonProps = Omit<RacButtonProps, "onPress"> &
+// TODO: Rename
+type NewButtonProps = Omit<RacButtonProps, "onPress"> &
+  MotionProps &
   (
     | (RacButtonProps & {
         // eslint-disable-next-line no-unused-vars
@@ -23,6 +26,33 @@ type ButtonProps = Omit<RacButtonProps, "onPress"> &
       })
   );
 
+// TODO: Rename
+const FButton = forwardRef<HTMLButtonElement, RacButtonProps>((props, ref) => (
+  <RacButton {...props} ref={ref} />
+));
+FButton.displayName = "FButton";
+const MotionButton = motion.create(FButton);
+
+// TODO: Rename
+const NewButton = forwardRef<HTMLButtonElement, NewButtonProps>(
+  ({ className, onPress, onClick, ...props }, ref) => {
+    function handleClick(e: RacPressEvent) {
+      if (onClick) onClick(e);
+      if (onPress) onPress(e);
+    }
+    return (
+      <MotionButton
+        className={cn("p-2", className)}
+        onPress={handleClick}
+        {...props}
+        ref={ref}
+      />
+    );
+  },
+);
+NewButton.displayName = "NewButton";
+
+/*
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, onPress, onClick, ...props }, ref) => {
     function handleClick(e: RacPressEvent) {
@@ -40,6 +70,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
-
 Button.displayName = "Button";
-export { Button, type ButtonProps };
+*/
+
+// TODO: Export the prop
+export { NewButton as Button };
