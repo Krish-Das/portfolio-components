@@ -14,7 +14,7 @@ import {
 import { Button, ButtonProps } from "@/app/components/buttons/ButtonV2";
 import {
   // Button,
-  // ButtonProps,
+  ButtonProps as RacButtonProps,
   DialogTrigger,
   DialogTriggerProps,
   ModalOverlayProps,
@@ -110,14 +110,14 @@ const Menu = ({ ...props }: DialogTriggerProps) => {
   return <DialogTrigger {...props} onOpenChange={handleOpenChange} />;
 };
 
-const MenuTrigger = ({ className, ...props }: ButtonProps) => {
+const MenuTrigger = ({ className, ...props }: RacButtonProps) => {
   const { triggerRef } = useMenu();
   return (
     <Button
       size="icon"
       className={cn("menu__trigger", className)}
       ref={triggerRef}
-      {...props}
+      {...(props as ButtonProps)}
     />
   );
 };
