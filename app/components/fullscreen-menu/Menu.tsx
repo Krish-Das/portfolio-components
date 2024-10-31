@@ -11,11 +11,12 @@ import {
   useRef,
   useState,
 } from "react";
+import { Button, ButtonProps } from "@/app/components/buttons/ButtonV2";
 import {
-  Button,
+  // Button,
+  // ButtonProps,
   DialogTrigger,
   DialogTriggerProps,
-  ButtonProps,
   ModalOverlayProps,
 } from "react-aria-components";
 
@@ -113,6 +114,7 @@ const MenuTrigger = ({ className, ...props }: ButtonProps) => {
   const { triggerRef } = useMenu();
   return (
     <Button
+      size="icon"
       className={cn("menu__trigger", className)}
       ref={triggerRef}
       {...props}
