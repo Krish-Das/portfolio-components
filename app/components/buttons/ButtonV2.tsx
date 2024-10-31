@@ -8,7 +8,7 @@ import {
   Button as RacButton,
   ButtonProps as RacButtonProps,
 } from "react-aria-components";
-import { motion, MotionProps } from "framer-motion";
+import { motion, MotionProps, useAnimation } from "framer-motion";
 import { cva, VariantProps } from "class-variance-authority";
 
 type ButtonProps = VariantProps<typeof buttonVariants> &
@@ -31,9 +31,9 @@ const buttonVariants = cva(
   [
     "inline-flex gap-2 items-center justify-center rounded-full px-5 leading-none tracking-[0.01em] whitespace-nowrap",
     "focus:outline-none focus-visible:outline-none",
-    "disabled:pointer-events-none disabled:opacity-50", // Button Disabled
-    "touch-none cursor-default select-none", // Disable select
-    "[--bg-while-tap:#757376]",
+    "disabled:pointer-events-none disabled:opacity-50", // Disabled
+    "touch-none cursor-default select-none", // cursor and select
+    "[--bg-tap-start:#757376] [--bg-tap-end:#353336]",
   ],
   {
     variants: {
@@ -56,17 +56,43 @@ const buttonVariants = cva(
 );
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, onPress, onClick, variant, size, ...props }, ref) => {
+  (
+    {
+      className,
+      onPress,
+      onClick,
+      onPressStart,
+      onPressEnd,
+      variant,
+      size,
+      animate,
+      ...props
+    },
+    ref,
+  ) => {
+    const controls = useAnimation();
+
     function handleClick(e: RacPressEvent) {
       if (onClick) onClick(e);
       if (onPress) onPress(e);
+    }
+    function handlePressStart(e: RacPressEvent) {
+      controls.stop();
+      controls.set({ background: "var(--bg-tap-start, #FFF)", scale: 0.96 });
+      if (onPressStart) onPressStart(e);
+    }
+    function handlePressEnd(e: RacPressEvent) {
+      controls.start({ background: "var(--bg-tap-end, #000)", scale: 1 });
+      if (onPressEnd) onPressEnd(e);
     }
 
     return (
       <MotionButton
         className={cn(buttonVariants({ variant, size, className }))}
-        whileTap={{ background: "var(--bg-while-tap)" }}
         onPress={handleClick}
+        onPressStart={handlePressStart}
+        onPressEnd={handlePressEnd}
+        animate={animate || controls}
         {...props}
         ref={ref}
       />
@@ -86,4 +112,4 @@ const ForwardedButton = forwardRef<HTMLButtonElement, RacButtonProps>(
 ForwardedButton.displayName = "ForwardedButton";
 const MotionButton = motion.create(ForwardedButton);
 
-export { Button, ForwardedButton, type ButtonProps };
+export { Button, ForwardedButton, buttonVariants, type ButtonProps };
