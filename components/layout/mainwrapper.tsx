@@ -3,8 +3,8 @@ import { cn } from "@/lib/utils";
 export const Main = ({
   className,
   ...props
-}: React.HTMLAttributes<HTMLElement>) => (
-  <main className={cn("container py-4", className)} {...props} />
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <main className={cn("container", className)} {...props} />
 );
 
 Main.displayName = "main";
