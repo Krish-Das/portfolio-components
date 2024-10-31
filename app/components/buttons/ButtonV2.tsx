@@ -13,19 +13,12 @@ import { cva, VariantProps } from "class-variance-authority";
 
 type ButtonProps = VariantProps<typeof buttonVariants> &
   Omit<RacButtonProps, "onPress"> &
-  MotionProps &
-  (
-    | (RacButtonProps & {
-        // eslint-disable-next-line no-unused-vars
-        onClick: (e: RacPressEvent) => void;
-        onPress?: never;
-      })
-    | (RacButtonProps & {
-        // eslint-disable-next-line no-unused-vars
-        onPress: (e: RacPressEvent) => void;
-        onClick?: never;
-      })
-  );
+  MotionProps & {
+    // eslint-disable-next-line no-unused-vars
+    onClick?: (e: RacPressEvent) => void;
+    // eslint-disable-next-line no-unused-vars
+    onPress?: (e: RacPressEvent) => void;
+  };
 
 const buttonVariants = cva(
   [
