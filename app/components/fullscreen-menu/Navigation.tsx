@@ -14,7 +14,7 @@ import {
   MaterialSymbolsMail,
   MaterialSymbolsRectangleRounded,
 } from "../icons/material-symbols";
-import { Button } from "@/app/components/buttons/Button";
+import { Button } from "@/app/components/buttons/ButtonV2";
 import { projects } from "@/lib/project-images";
 import { cn } from "@/lib/utils";
 

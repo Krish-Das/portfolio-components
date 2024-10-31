@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { IoLogoGoogle } from "react-icons/io";
 import { IoMdOpen } from "react-icons/io";
-import { Button as ButtonV1 } from "./buttons/Button";
-import { Button as ButtonV2 } from "./buttons/ButtonV2";
+import { Button } from "@/app/components/buttons/ButtonV2";
 
 export default function ButtonLab() {
   const [number, setNumber] = useState(0);
@@ -14,24 +13,25 @@ export default function ButtonLab() {
       <Display number={number} />
 
       <div className="mt-5 inline-flex h-[70dvh] w-full flex-wrap items-center justify-center gap-1">
-        <ButtonV1 onClick={() => setNumber(Math.round(Math.random() * 100))}>
+        <Button onClick={() => setNumber(Math.round(Math.random() * 100))}>
           <IoMdOpen /> Open
-        </ButtonV1>
+        </Button>
 
-        <ButtonV1
+        <Button
           onClick={() => setNumber(Math.round(Math.random() * 100))}
           size="icon"
         >
           <IoLogoGoogle />
-        </ButtonV1>
+        </Button>
 
-        <ButtonV2
-          onClick={() => setNumber(Math.round(Math.random() * 101))}
+        <Button
           autoFocus
-          // size="icon"
+          onClick={() => setNumber(Math.round(Math.random() * 101))}
+          className=""
+          size="icon"
         >
           <IoLogoGoogle />
-        </ButtonV2>
+        </Button>
       </div>
     </>
   );
