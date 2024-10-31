@@ -3,14 +3,7 @@
 import { MotionModal, MotionModalOverlay } from "../MotionComponents";
 import { cn, debounce } from "@/lib/utils";
 import { MotionProps, Transition } from "framer-motion";
-import {
-  HTMLAttributes,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { Button, ButtonProps } from "@/app/components/buttons/ButtonV2";
 import {
   // Button,
@@ -122,7 +115,7 @@ const MenuTrigger = ({ className, ...props }: RacButtonProps) => {
   );
 };
 
-const MenuBody = ({ className, ...props }: ModalOverlayProps) => {
+const MenuBody = ({ className, ...props }: ModalOverlayProps & MotionProps) => {
   const {
     animation,
     handleAnimationComplete,
@@ -167,11 +160,11 @@ const MenuBody = ({ className, ...props }: ModalOverlayProps) => {
           <MotionModal
             className={cn(
               "menu__body",
-              "h-full w-full overflow-hidden",
-              "container p-0",
+              "container h-full w-full p-0",
+              "relative overflow-hidden",
               className,
             )}
-            {...(props as ModalOverlayProps & MotionProps)}
+            {...props}
           />
         </MotionModalOverlay>
       )}
