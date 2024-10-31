@@ -167,11 +167,8 @@ const MenuBody = ({ className, ...props }: ModalOverlayProps) => {
           <MotionModal
             className={cn(
               "menu__body",
-              "h-full w-full",
-              "mx-auto max-w-[1920px]",
-              "grid place-items-center",
-              "grid-cols-[1fr,1.15fr,1.05fr]",
-              // isOpen ? "grid-cols-[1fr,1.15fr,1fr]" : "grid-cols-[0fr,0fr,0fr]",
+              "h-full w-full overflow-hidden",
+              "container p-0",
               className,
             )}
             {...(props as ModalOverlayProps & MotionProps)}
@@ -182,43 +179,10 @@ const MenuBody = ({ className, ...props }: ModalOverlayProps) => {
   );
 };
 
-const MenuThumbnail = ({
-  className,
-  ...props
-}: HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "menu__thumbnail",
-      "col-start-2 overflow-hidden",
-      "h-full w-full overflow-hidden",
-      className,
-    )}
-    {...props}
-  />
-);
-
-const MenuContent = ({
-  className,
-  ...props
-}: HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cn(
-      "menu__content",
-      "col-start-3 self-start justify-self-start",
-      "h-full overflow-hidden px-10 py-24",
-      "inline-flex flex-col items-start gap-3",
-      className,
-    )}
-    {...props}
-  />
-);
-
 export {
   Menu,
   MenuTrigger,
   MenuBody,
-  MenuThumbnail,
-  MenuContent,
   MenuProvider,
   useMenu,
   type AnimationState,
