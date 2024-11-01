@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      spacing: {
+        dvh: "100dvh",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
