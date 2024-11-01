@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef } from "react";
+import { forwardRef, memo, useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 import {
@@ -8,7 +8,7 @@ import {
   Button as RacButton,
   ButtonProps as RacButtonProps,
 } from "react-aria-components";
-import { motion, MotionProps, useAnimation } from "framer-motion";
+import { motion, MotionProps, useAnimationControls } from "framer-motion";
 import { cva, VariantProps } from "class-variance-authority";
 
 type ButtonProps = VariantProps<typeof buttonVariants> &
@@ -26,13 +26,14 @@ const buttonVariants = cva(
     "focus:outline-none focus-visible:outline-none",
     "disabled:pointer-events-none disabled:opacity-50", // Disabled
     "touch-none cursor-default select-none", // cursor and select
-    "[--bg-tap-start:#757376] [--bg-tap-end:#353336]",
   ],
   {
     variants: {
       variant: {
-        default: "bg-[#353336] text-foreground",
-        destructive: "bg-[#FF453A] text-foreground",
+        default:
+          "bg-[#353336] text-foreground [--bg-tap-start:#757376] [--bg-tap-end:#353336]",
+        destructive:
+          "bg-[#FF453A] text-foreground [--bg-tap-start:#EB948F] [--bg-tap-end:#FF453A]",
       },
       size: {
         default: "h-12 sm:h-9 text-base sm:text-sm",
@@ -48,49 +49,57 @@ const buttonVariants = cva(
   },
 );
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      onPress,
-      onClick,
-      onPressStart,
-      onPressEnd,
-      variant,
-      size,
-      animate,
-      ...props
+const Button = memo(
+  forwardRef<HTMLButtonElement, ButtonProps>(
+    (
+      {
+        className,
+        onPress,
+        onClick,
+        onPressStart,
+        onPressEnd,
+        variant,
+        size,
+        animate,
+        ...props
+      },
+      ref,
+    ) => {
+      const controls = useAnimationControls();
+      useEffect(() => {
+        controls.set({ background: "var(--bg-tap-end, #000)", scale: 1 });
+      }, [controls]);
+
+      function handleClick(e: RacPressEvent) {
+        if (onClick) onClick(e);
+        if (onPress) onPress(e);
+      }
+      function handlePressStart(e: RacPressEvent) {
+        controls.stop();
+        controls.set({
+          background: "var(--bg-tap-start, #FFF)",
+          scale: size === "icon" ? 0.96 : 1,
+        });
+        if (onPressStart) onPressStart(e);
+      }
+      function handlePressEnd(e: RacPressEvent) {
+        controls.start({ background: "var(--bg-tap-end, #000)", scale: 1 });
+        if (onPressEnd) onPressEnd(e);
+      }
+
+      return (
+        <MotionButton
+          className={cn(buttonVariants({ variant, size, className }))}
+          onPress={handleClick}
+          onPressStart={handlePressStart}
+          onPressEnd={handlePressEnd}
+          animate={animate || controls}
+          {...props}
+          ref={ref}
+        />
+      );
     },
-    ref,
-  ) => {
-    const controls = useAnimation();
-
-    function handleClick(e: RacPressEvent) {
-      if (onClick) onClick(e);
-      if (onPress) onPress(e);
-    }
-    function handlePressStart(e: RacPressEvent) {
-      controls.stop();
-      controls.set({ background: "var(--bg-tap-start, #FFF)", scale: 0.96 });
-      if (onPressStart) onPressStart(e);
-    }
-    function handlePressEnd(e: RacPressEvent) {
-      controls.start({ background: "var(--bg-tap-end, #000)", scale: 1 });
-      if (onPressEnd) onPressEnd(e);
-    }
-
-    return (
-      <MotionButton
-        className={cn(buttonVariants({ variant, size, className }))}
-        onPress={handleClick}
-        onPressStart={handlePressStart}
-        onPressEnd={handlePressEnd}
-        animate={animate || controls}
-        {...props}
-        ref={ref}
-      />
-    );
-  },
+  ),
 );
 Button.displayName = "Button";
 
