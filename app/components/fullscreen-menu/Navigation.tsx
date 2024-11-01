@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Menu,
-  MenuBody,
-  MenuContent,
-  MenuThumbnail,
-  MenuTrigger,
-  useMenu,
-} from "./Menu";
+import { Menu, MenuBody, MenuTrigger, useMenu } from "./Menu";
 import {
   MaterialSymbolsInfoOutline,
   MaterialSymbolsMagnificationLarge,
@@ -17,6 +10,7 @@ import {
 import { Button } from "@/app/components/buttons/ButtonV2";
 import { projects } from "@/lib/project-images";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 export default function Navigation() {
   const { isMenuOpen } = useMenu();
@@ -27,19 +21,38 @@ export default function Navigation() {
         <StaticMarkup />
 
         <Menu>
-          <MenuTrigger
-            className="inline-grid h-9 w-9 place-items-center rounded-full border border-none border-foreground/10 bg-background/20 text-lg outline-none"
-            autoFocus
-          >
+          <MenuTrigger className="h-10 w-10" autoFocus>
             {!isMenuOpen ? (
               <MaterialSymbolsRectangleRounded />
             ) : (
               <MaterialSymbolsMagnificationLarge />
             )}
           </MenuTrigger>
-          <MenuBody>
-            <MenuThumbnail></MenuThumbnail>
-            <MenuContent></MenuContent>
+          <MenuBody
+            className="grid grid-cols-[1fr,1.15fr,1.05fr] place-items-center"
+            delay={0.16}
+          >
+            <motion.div
+              variants={{
+                hidden: {
+                  // scaleY: 0.3,
+                  height: "calc( 20% - 0rem)",
+                  width: "20%",
+                  opacity: 0,
+                  filter: "blur(10px)",
+                },
+                visible: {
+                  // scaleY: 1,
+                  height: "calc( 100% - 7rem)",
+                  width: "100%",
+                  opacity: 1,
+                  filter: "blur(0px)",
+                  transition: { delay: 0.25, type: "spring", bounce: 0.25 },
+                },
+              }}
+              className="col-start-2 h-[calc(100%-7rem)] w-full origin-center overflow-hidden rounded-xl bg-[#353336]"
+            />
+            <div className="col-start-3 h-full w-full self-start justify-self-start" />
           </MenuBody>
         </Menu>
       </nav>
