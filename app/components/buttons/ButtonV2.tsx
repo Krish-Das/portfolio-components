@@ -30,16 +30,25 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-[#353336] text-foreground [--bg-tap-start:#757376] [--bg-tap-end:#353336]",
+        default: [
+          "text-foreground",
+          "[--bg-tap-start:#757376] [--bg-tap-end:#353336] bg-[#353336]",
+        ],
         destructive:
           "bg-[#FF453A] text-foreground [--bg-tap-start:#EB948F] [--bg-tap-end:#FF453A]",
       },
       size: {
-        default: "h-12 sm:h-9 text-base sm:text-sm",
-        sm: "gap-1 h-10 sm:h-8 px-4 text-sm",
+        default: [
+          "h-12 sm:h-9 text-base sm:text-sm",
+          "gap-[0.4rem] font-medium sm:px-4 [&>svg:first-of-type]:text-xl sm:[&>svg:first-of-type]:text-base",
+        ],
+        sm: [
+          "h-10 sm:h-8 px-4 text-sm",
+          "gap-[0.35rem] font-medium sm:px-3 sm:text-xs [&>svg:first-of-type]:text-base sm:[&>svg:first-of-type]:text-sm",
+        ],
         lg: "h-14 sm:h-11 text-base sm:text-sm",
-        icon: "h-14 w-14 p-0 sm:h-9 sm:w-9 text-xl sm:text-base",
+        icon: "h-11 w-11 p-0 sm:h-9 sm:w-9 text-2xl sm:text-lg",
+        iconlg: "h-14 w-14 p-0 text-3xl sm:h-11 sm:w-11 sm:text-2xl",
       },
     },
     defaultVariants: {
