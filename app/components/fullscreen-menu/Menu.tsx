@@ -115,7 +115,11 @@ const MenuTrigger = ({ className, ...props }: RacButtonProps) => {
   );
 };
 
-const MenuBody = ({ className, ...props }: ModalOverlayProps & MotionProps) => {
+const MenuBody = ({
+  className,
+  delay,
+  ...props
+}: ModalOverlayProps & MotionProps & { delay?: number }) => {
   const {
     animation,
     handleAnimationComplete,
@@ -144,6 +148,7 @@ const MenuBody = ({ className, ...props }: ModalOverlayProps & MotionProps) => {
               left: bounds.left,
               bottom: window.innerHeight - bounds.bottom,
               right: window.innerWidth - bounds.right,
+              transition: { delay: delay ?? 0 },
             },
             visible: {
               borderRadius: "0px",
@@ -180,5 +185,5 @@ export {
   useMenu,
   type AnimationState,
   type MenuContextType,
-  transition as MenuTransition,
+  transition,
 };
