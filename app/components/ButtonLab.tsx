@@ -25,9 +25,8 @@ export default function ButtonLab() {
         </Button>
 
         <Button
-          autoFocus
           onClick={() => setNumber(Math.round(Math.random() * 101))}
-          className=""
+          variant="destructive"
           size="icon"
         >
           <IoLogoGoogle />
