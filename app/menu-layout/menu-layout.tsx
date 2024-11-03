@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { RawLogo } from "./raw-logo";
 import { MenuLinks } from "@/lib/menu-links";
 import { projects } from "@/lib/project-images";
+import MenuTest from "./test-2";
 
 function Navbar() {
   return (
@@ -23,15 +24,19 @@ function Navbar() {
     >
       <StaticMarkup />
 
-      <Button className="bg-background/0 [--bg-tap-end:#00000000]" size="icon">
+      <Button
+        className="hidden bg-background/0 [--bg-tap-end:#00000000]"
+        size="icon"
+      >
         <MaterialSymbolsRectangleRounded />
       </Button>
+      <MenuTest />
     </nav>
   );
 }
 
 function Portal() {
-  const isOpen = true;
+  const isOpen = !true;
 
   return (
     <>

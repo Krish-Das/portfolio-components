@@ -1,6 +1,7 @@
 import { Main } from "@/components/layout/mainwrapper";
 import Image from "next/image";
 import { Navbar, Portal } from "./menu-layout";
+// import TestComponent from "./test-component";
 
 export default function Page() {
   return (
@@ -19,6 +20,10 @@ export default function Page() {
         </div>
       </Main>
       <Portal />
+      <div className="h-screen w-full bg-red-300" />
+      <div className="h-screen w-full bg-green-300" />
+      
+      {/* <TestComponent /> */}
     </>
   );
 }
