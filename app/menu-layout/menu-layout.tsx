@@ -121,7 +121,7 @@ function ProjectSwitcher() {
 function ProjectInfo() {
   return (
     // "border border-zinc-600/10 bg-secondary/20 rounded-xl p-2 pr-6 backdrop-blur-md space-y-2 font-medium"
-    <article className="space-y-2 pl-5 font-medium">
+    <article className="space-y-2 pl-5 font-medium max-sm:hidden">
       <h3 className="inline-flex items-center gap-1 rounded-full border border-zinc-600/10 bg-secondary/20 px-2 py-1 text-[0.7rem] leading-none text-muted-foreground">
         <span className="text-xs">
           <MaterialSymbolsInfoOutline />
@@ -135,7 +135,6 @@ function ProjectInfo() {
     </article>
   );
 }
-
 function StaticMarkup() {
   return (
     <>
