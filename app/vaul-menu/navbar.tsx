@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "container fixed inset-x-0 top-0 isolate z-20 p-0",
+        "container fixed inset-x-0 top-0 isolate z-10 p-0",
         "flex items-center justify-end gap-2 p-3 sm:p-5",
       )}
     >
