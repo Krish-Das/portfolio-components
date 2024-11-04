@@ -5,11 +5,24 @@ import {
 } from "@/app/components/icons/material-symbols";
 import { MenuLinks } from "@/lib/menu-links";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import { IoChevronForwardSharp } from "react-icons/io5";
+
+const transition = {
+  type: "spring",
+  bounce: 0,
+  duration: 0.75,
+};
 
 export default function MenuRight() {
   return (
-    <ul className="flex h-full w-72 flex-col gap-2 rounded-md md:gap-1">
+    <motion.ul
+      className="flex h-full w-72 flex-col gap-2 rounded-md md:gap-1"
+      initial={{ x: "80%", opacity: 0, scaleX: 1.6, filter: "blur(3px)" }}
+      animate={{ x: "0px", opacity: 1, scaleX: 1, filter: "blur(0px)" }}
+      exit={{ x: "80%", opacity: 0, scaleX: 1.6, filter: "blur(3px)" }}
+      transition={{ ...transition, delay: 0.1 }}
+    >
       {MenuLinks.map((link, idx) => (
         <li key={idx} className="">
           {/* TODO: Use variant ghost when added */}
@@ -41,6 +54,6 @@ export default function MenuRight() {
           </Button>
         </div>
       </li>
-    </ul>
+    </motion.ul>
   );
 }
