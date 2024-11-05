@@ -18,9 +18,9 @@ export default function MenuRight() {
   return (
     <motion.ul
       className="flex h-full w-72 flex-col gap-2 rounded-md md:gap-1"
-      initial={{ x: "80%", opacity: 0, scaleX: 1.6, filter: "blur(3px)" }}
+      initial={{ x: "30%", opacity: 0, scaleX: 1.6, filter: "blur(3px)" }}
       animate={{ x: "0px", opacity: 1, scaleX: 1, filter: "blur(0px)" }}
-      exit={{ x: "80%", opacity: 0, scaleX: 1.6, filter: "blur(3px)" }}
+      exit={{ x: "30%", opacity: 0, scaleX: 1.6, filter: "blur(3px)" }}
       transition={{ ...transition, delay: 0.1 }}
     >
       {MenuLinks.map((link, idx) => (
