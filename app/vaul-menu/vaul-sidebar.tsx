@@ -16,7 +16,7 @@ const transition = {
 export default function VaulSidebar() {
   return (
     <>
-      <Drawer.Root direction="right">
+      <Drawer.Root direction="right" handleOnly>
         <Drawer.Trigger
           className={cn(
             buttonVariants({ size: "icon", className: "bg-background/0" }),
@@ -38,7 +38,7 @@ export default function VaulSidebar() {
                 className="h-full w-[28rem] self-center rounded-md bg-black bg-cover bg-center max-sm:hidden"
                 style={{
                   backgroundImage:
-                  "url('https://mir-s3-cdn-cf.behance.net/project_modules/1400/975f0b204481991.66a9c401c0232.jpg')",
+                  "url('https://mir-s3-cdn-cf.behance.net/project_modules/1400/fe0e1d176922383.64cd13eb4676e.jpg')",
                 }}
               />
               <MenuRight />
