@@ -26,17 +26,9 @@ export default function VaulSidebar() {
         </Drawer.Trigger>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40" />
-          <Drawer.Content
-            className="fixed bottom-2 right-2 top-2 z-10 flex outline-none"
-            // The gap between the edge of the screen and the drawer is 8px in this case.
-            style={
-              {
-                "--initial-transform": "calc(100% + 8px)",
-              } as React.CSSProperties
-            }
-          >
+          <Drawer.Content className="fixed bottom-2 right-2 top-2 z-10 flex outline-none [--initial-transform:calc(100%+8px)]">
             {/* TODO: use dynamic colors */}
-            <div className="flex h-full gap-3 bg-[#18181B] overflow-hidden rounded-[16px] p-3">
+            <div className="flex h-full gap-3 overflow-hidden rounded-[16px] bg-[#18181B] p-3">
               <motion.div
                 className="h-full w-[28rem] self-center rounded-md bg-black bg-cover bg-center max-sm:hidden"
                 style={{
