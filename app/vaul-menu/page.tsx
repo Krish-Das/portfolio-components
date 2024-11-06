@@ -1,23 +1,16 @@
 import { Main } from "@/components/layout/mainwrapper";
-import Image from "next/image";
-import Navbar from "./navbar";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Page() {
   return (
-    <>
-      <Main className="grid h-dvh place-items-center p-0">
-        <div className="relative grid h-full w-full place-items-center">
-          <Navbar />
-          <div className="relative isolate grid h-full w-full place-items-center md:aspect-square md:w-auto">
-            <Image
-              alt="One star image"
-              src="/one-star.jpg"
-              style={{ objectFit: "cover" }}
-              fill
-            />
-          </div>
-        </div>
-      </Main>
-    </>
+    <Main className="py-5 space-x-4">
+      <Button>
+        <Link href="/vaul-menu/v1">V1</Link>
+      </Button>
+      <Button>
+        <Link href="/vaul-menu/v2">V2</Link>
+      </Button>
+    </Main>
   );
 }

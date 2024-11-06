@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/app/components/buttons/ButtonV2";
 import { MaterialSymbolsMail } from "@/app/components/icons/material-symbols";
-import { RawLogo } from "../menu-layout/raw-logo";
+import { RawLogo } from "@/app/menu-layout/raw-logo";
 import VaulSidebar from "./vaul-sidebar";
 
 export default function Navbar() {
