@@ -1,28 +1,16 @@
-import Navigation from "@/app/components/fullscreen-menu/Navigation";
-import { SystemUiconsDisplayAlt } from "../components/icons/system-ui";
-import { Button } from "@/app/components/buttons/ButtonV2";
+import { Main } from "@/components/layout/mainwrapper";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Page() {
   return (
-    <>
-      <Navigation />
-      <Children />
-    </>
-  );
-}
-
-/*
- * a Placeholder for the childrens
- */
-function Children() {
-  return (
-    <main className="w-full transition-all">
-      <section className="grid h-[100dvh] w-full place-items-center bg-[url('https://mir-s3-cdn-cf.behance.net/project_modules/max_3840/4edaef206261021.66f7b8796624f.png')] bg-cover bg-center">
-        <Button>
-          <SystemUiconsDisplayAlt /> Enter
-        </Button>
-      </section>
-      <section className="grid h-[100dvh] w-full place-items-center bg-[url('https://assets.awwwards.com/awards/images/2024/06/metalab-cs-cover.jpg')] bg-cover bg-center" />
-    </main>
+    <Main className="py-5 space-x-4">
+      <Button>
+        <Link href="/ios-menu/v1">V1</Link>
+      </Button>
+      <Button>
+        <Link href="/ios-menu/v2">V2</Link>
+      </Button>
+    </Main>
   );
 }
