@@ -1,21 +1,27 @@
 "use client";
 
 import { buttonVariants } from "@/app/components/buttons/ButtonV2";
-import { MaterialSymbolsRectangleRounded } from "@/app/components/icons/material-symbols";
-import { SystemUiconsEpisodes } from "@/app/components/icons/system-ui";
+import {
+  MaterialSymbolsMagnificationLarge,
+  MaterialSymbolsRectangleRounded,
+} from "@/app/components/icons/material-symbols";
+import { transition } from "@/lib/animation-utils";
 import { cn } from "@/lib/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import useMeasure from "react-use-measure";
 
 export default function Menu() {
   const [open, setOpen] = useState(false);
+  const [ref, bounds] = useMeasure();
 
   return (
     <>
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger
           autoFocus
+          ref={ref}
           className={cn(
             buttonVariants({ size: "icon", className: "bg-background/0" }),
           )}
@@ -28,33 +34,40 @@ export default function Menu() {
             <Dialog.Portal forceMount>
               <Dialog.Overlay asChild>
                 <motion.div
+                  key="menu-overlay"
                   className={cn(
-                    "menu__overlay fixed z-20 bg-black/90 backdrop-blur-lg",
-                    // "inset-0",
-                    "bg-red-300", //TODO: Remove these
+                    "menu__overlay fixed z-20 bg-black/85 backdrop-blur-lg",
                   )}
                   initial="closed"
                   exit="closed"
                   animate="open"
-                  // variants={{ open: { opacity: 1 }, closed: { opacity: 0 } }}
                   style={{
-                    top: 30,
-                    left: 30,
-                    right: "calc(100% - 60px)",
-                    bottom: "calc(100% - 60px)",
+                    top: bounds.top,
+                    left: bounds.left,
+                    bottom: window.innerHeight - bounds.bottom,
+                    right: window.innerWidth - bounds.right,
+                    borderRadius: "30px",
                   }}
                   variants={{
-                    open: { top: 0, left: 0, right: 0, bottom: 0 },
                     closed: {
-                      top: 30,
-                      left: 30,
-                      right: `calc(100% - ${60}px)`,
-                      bottom: `calc(100% - ${60}px)`,
+                      borderRadius: "30px",
+                      top: bounds.top,
+                      left: bounds.left,
+                      bottom: window.innerHeight - bounds.bottom,
+                      right: window.innerWidth - bounds.right,
+                    },
+                    open: {
+                      borderRadius: "0px",
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      right: 0,
                     },
                   }}
+                  transition={transition}
                 />
               </Dialog.Overlay>
-              <Dialog.Content className="menu__content bg-blue-300/20s fixed inset-0 z-20">
+              <Dialog.Content className="menu__content fixed inset-0 z-20">
                 {/* --- Close --- */}
                 <Dialog.Close
                   autoFocus
@@ -63,9 +76,17 @@ export default function Menu() {
                       size: "icon",
                       className: "bg-background/0",
                     }),
+                    "absolute",
                   )}
+                  style={{
+                    top: bounds.top,
+                    left: bounds.left,
+                    bottom: window.innerHeight - bounds.bottom,
+                    right: window.innerWidth - bounds.right,
+                    borderRadius: "30px",
+                  }}
                 >
-                  <SystemUiconsEpisodes />
+                  <MaterialSymbolsMagnificationLarge />
                 </Dialog.Close>
               </Dialog.Content>
             </Dialog.Portal>
