@@ -121,7 +121,7 @@ export default function Menu() {
                       scaleX: 1,
                       // height: "86dvh",
                       // width: "var(--width-to)",
-                      transition: { ...transition, delay: 0.4 },
+                      transition: { ...transition, duration: 0.9, delay: 0.43 },
                     },
                   }}
                 />
