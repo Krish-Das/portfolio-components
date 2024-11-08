@@ -15,6 +15,7 @@ import useMeasure from "react-use-measure";
 export default function Menu() {
   const [open, setOpen] = useState(false);
   const [ref, bounds] = useMeasure();
+  const overlayCloseDelay = 0.5;
 
   return (
     <>
@@ -55,6 +56,7 @@ export default function Menu() {
                       left: bounds.left,
                       bottom: window.innerHeight - bounds.bottom,
                       right: window.innerWidth - bounds.right,
+                      transition: { ...transition, delay: overlayCloseDelay },
                     },
                     open: {
                       borderRadius: "0px",
@@ -62,13 +64,56 @@ export default function Menu() {
                       left: 0,
                       bottom: 0,
                       right: 0,
+                      transition,
                     },
                   }}
-                  transition={transition}
                 />
               </Dialog.Overlay>
 
-              <Dialog.Content className="menu__content fixed inset-0 z-20">
+              <Dialog.Content
+                className={cn(
+                  "menu__content fixed inset-0 z-20",
+                  "grid place-items-center",
+                )}
+              >
+                <motion.div
+                  className={cn(
+                    "w-[90vw] sm:w-[28rem] h-[86dvh] rounded-sm bg-[#3f3f46] origin-top-right",
+                    "bg-cover bg-center bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/5/6506b84c19486e146dac5b.jpg')]",
+                    "[--width-to:90vw] sm:[--width-to:28rem]",
+                    // 'https://dr.savee-cdn.com/image-fallbacks/original/6/7/26d96e3c9caf177be4e9d4.jpg',
+                    // 'https://dr.savee-cdn.com/image-fallbacks/original/6/5/6506b84c19486e146dac5b.jpg',
+                  )}
+                  initial="close"
+                  exit="close"
+                  animate="open"
+                  variants={{
+                    close: {
+                      opacity: 0,
+                      filter: "blur(20px)",
+                      x: 30,
+                      y: -30,
+                      scaleY: 1.05,
+                      scaleX: 1.15,
+                      // height: "60dvh",
+                      // height: "100dvh",
+                      // width: "100vw",
+                      transition: { ...transition, duration: 1 },
+                    },
+                    open: {
+                      opacity: 1,
+                      filter: "blur(0px)",
+                      x: 0,
+                      y: 0,
+                      scaleY: 1,
+                      scaleX: 1,
+                      // height: "86dvh",
+                      // width: "var(--width-to)",
+                      transition: { ...transition, delay: 0.4 },
+                    },
+                  }}
+                />
+
                 <Dialog.Close
                   autoFocus
                   className={cn(
