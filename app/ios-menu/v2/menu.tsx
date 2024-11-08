@@ -145,6 +145,11 @@ export default function Menu() {
                 >
                   <MaterialSymbolsMagnificationLarge />
                 </Dialog.Close>
+
+                <Dialog.Title className="sr-only">Menu Content</Dialog.Title>
+                <Dialog.Description className="sr-only">
+                  Navigate the site from here
+                </Dialog.Description>
               </Dialog.Content>
             </Dialog.Portal>
           )}
