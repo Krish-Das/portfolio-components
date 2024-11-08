@@ -67,8 +67,8 @@ export default function Menu() {
                   transition={transition}
                 />
               </Dialog.Overlay>
+
               <Dialog.Content className="menu__content fixed inset-0 z-20">
-                {/* --- Close --- */}
                 <Dialog.Close
                   autoFocus
                   className={cn(
