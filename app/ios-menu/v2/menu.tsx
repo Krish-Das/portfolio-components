@@ -6,29 +6,46 @@ import {
   MaterialSymbolsRectangleRounded,
 } from "@/app/components/icons/material-symbols";
 import { transition } from "@/lib/animation-utils";
-import { cn, wait } from "@/lib/utils";
+import { cn, debounce } from "@/lib/utils";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
+
+export function useExitTransitionDelay(isOpen: boolean, delay: number = 500) {
+  const [shouldHaveExitDelay, setShouldHaveExitDelay] = useState(false);
+
+  useEffect(() => {
+    const scheduleExitDelay = debounce(() => {
+      setShouldHaveExitDelay(true);
+    }, delay);
+
+    if (isOpen) {
+      scheduleExitDelay();
+    } else {
+      scheduleExitDelay.cancel();
+      setShouldHaveExitDelay(false);
+    }
+
+    return () => {
+      scheduleExitDelay.cancel();
+    };
+  }, [isOpen, delay]);
+
+  return shouldHaveExitDelay;
+}
 
 export default function Menu() {
   const [open, setOpen] = useState(false);
-  const [shouldOverlayExitHaveDelay, setShouldOverlayExitHaveDelay] =
-    useState(false);
+  const shouldOverlayHaveExitDelay = useExitTransitionDelay(open, 700);
   const [ref, bounds] = useMeasure();
-  const overlayCloseDelay = 0.5;
+  const overlayExitDelay = 0.5;
 
   return (
     <>
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger
           autoFocus
-          onClick={async () => {
-            setShouldOverlayExitHaveDelay(false);
-            await wait(500);
-            setShouldOverlayExitHaveDelay(true);
-          }}
           ref={ref}
           className={cn(
             buttonVariants({ size: "icon", className: "bg-background/0" }),
@@ -65,8 +82,8 @@ export default function Menu() {
                       right: window.innerWidth - bounds.right,
                       transition: {
                         ...transition,
-                        delay: shouldOverlayExitHaveDelay
-                          ? overlayCloseDelay
+                        delay: shouldOverlayHaveExitDelay
+                          ? overlayExitDelay
                           : 0,
                       },
                     },
@@ -90,11 +107,12 @@ export default function Menu() {
               >
                 <motion.div
                   className={cn(
-                    "menu__thumbnail w-[90vw] sm:w-[28rem] h-[86dvh] rounded-sm bg-[#3f3f46] origin-top-right",
-                    "bg-cover bg-center bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/5/6506b84c19486e146dac5b.jpg')]",
+                    "menu__thumbnail w-[90vw] sm:w-[80vw]s sm:w-[28rem] h-[86dvh] rounded-sm bg-[#3f3f46] origin-top-right",
+                    "bg-cover bg-center bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg')]",
                     "[--width-to:90vw] sm:[--width-to:28rem]",
                     // 'https://dr.savee-cdn.com/image-fallbacks/original/6/7/26d96e3c9caf177be4e9d4.jpg',
                     // 'https://dr.savee-cdn.com/image-fallbacks/original/6/5/6506b84c19486e146dac5b.jpg',
+                    // 'https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg',
                   )}
                   initial="close"
                   exit="close"
@@ -121,7 +139,11 @@ export default function Menu() {
                       scaleX: 1,
                       // height: "86dvh",
                       // width: "var(--width-to)",
-                      transition: { ...transition, duration: 0.9, delay: 0.43 },
+                      transition: {
+                        ...transition,
+                        duration: 0.85,
+                        delay: 0.43,
+                      },
                     },
                   }}
                 />
