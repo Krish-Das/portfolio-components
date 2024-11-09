@@ -99,54 +99,47 @@ export default function Menu() {
                 />
               </Dialog.Overlay>
 
-              <Dialog.Content
-                className={cn(
-                  "menu__content fixed inset-0 z-20",
-                  "grid place-items-center",
-                )}
-              >
-                <motion.div
-                  className={cn(
-                    "menu__thumbnail w-[90vw] sm:w-[80vw]s sm:w-[28rem] h-[86dvh] rounded-sm bg-[#3f3f46] origin-top-right",
-                    "bg-cover bg-center bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg')]",
-                    "[--width-to:90vw] sm:[--width-to:28rem]",
-                    // 'https://dr.savee-cdn.com/image-fallbacks/original/6/7/26d96e3c9caf177be4e9d4.jpg',
-                    // 'https://dr.savee-cdn.com/image-fallbacks/original/6/5/6506b84c19486e146dac5b.jpg',
-                    // 'https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg',
-                  )}
-                  initial="close"
-                  exit="close"
-                  animate="open"
-                  variants={{
-                    close: {
-                      opacity: 0,
-                      filter: "blur(20px)",
-                      x: 30,
-                      y: -30,
-                      scaleY: 1.05,
-                      scaleX: 1.15,
-                      // height: "60dvh",
-                      // height: "100dvh",
-                      // width: "100vw",
-                      transition: { ...transition, duration: 1 },
-                    },
-                    open: {
-                      opacity: 1,
-                      filter: "blur(0px)",
-                      x: 0,
-                      y: 0,
-                      scaleY: 1,
-                      scaleX: 1,
-                      // height: "86dvh",
-                      // width: "var(--width-to)",
-                      transition: {
-                        ...transition,
-                        duration: 0.85,
-                        delay: 0.43,
+              <Dialog.Content className="menu__content fixed inset-0 z-20 container p-0 md:grid md:place-items-center md:grid-cols-[2fr,1fr]">
+                <div className="menu__thumbnail-wraper h-full w-full md:static max-md:absolute max-md:top-1/2 max-md:left-1/2 max-md:-translate-y-1/2 max-md:-translate-x-1/2 flex items-center md:justify-end justify-center">
+                  <motion.div
+                    className={cn(
+                      "menu__thumbnail-image w-[90vw] md:w-[28rem] h-[95dvh] md:h-[90dvh] rounded-sm bg-[#3f3f46]",
+                      "bg-cover bg-center bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg')]",
+                    )}
+                    initial="close"
+                    exit="close"
+                    animate="open"
+                    variants={{
+                      close: {
+                        opacity: 0,
+                        filter: "blur(20px)",
+                        x: 30,
+                        y: -30,
+                        scaleY: 1.05,
+                        scaleX: 1.15,
+                        transition: { ...transition, duration: 1 },
                       },
-                    },
-                  }}
-                />
+                      open: {
+                        opacity: 1,
+                        filter: "blur(0px)",
+                        x: 0,
+                        y: 0,
+                        scaleY: 1,
+                        scaleX: 1,
+                        transition: {
+                          ...transition,
+                          duration: 0.85,
+                          delay: 0.43,
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                {/* Menu links */}
+                <div className="menu__link-wraper relative h-full w-full grid place-items-center">
+                  <div className="md:w-full w-[90vw] h-[95dvh] md:h-[90dvh]" />
+                </div>
 
                 <Dialog.Close
                   autoFocus
