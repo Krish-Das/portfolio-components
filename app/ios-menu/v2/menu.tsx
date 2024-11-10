@@ -105,10 +105,12 @@ export default function Menu() {
                   <motion.div
                     className={cn(
                       "menu__thumbnail-image h-[95dvh] w-[90vw] rounded-sm bg-[#3f3f46] md:h-[90dvh] md:w-[28rem]",
-                      "bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/6/f437193c9caf18281b6a67.jpg')] bg-cover bg-center"
+                      "bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/7/290e653c9caf1f8beebecd.jpg')] bg-cover bg-center"
                       // 'https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg'
                       // 'https://dr.savee-cdn.com/image-fallbacks/original/6/5/6506b84c19486e146dac5b.jpg'
                       // 'https://dr.savee-cdn.com/things/6/7/2c06e23c9caf2d5afcf3ac.png'
+                      // 'https://dr.savee-cdn.com/image-fallbacks/original/6/6/f437193c9caf18281b6a67.jpg'
+                      // 'https://dr.savee-cdn.com/image-fallbacks/original/6/7/290e653c9caf1f8beebecd.jpg'
                     )}
                     initial="close"
                     exit="close"
@@ -142,7 +144,7 @@ export default function Menu() {
 
                 {/* Menu links */}
                 <div className="menu__link-wraper relative grid h-full w-full place-items-center">
-                  <ul className="flex h-[95dvh] w-[90vw] flex-col gap-3 px-4 max-md:justify-end max-md:py-4 md:h-[90dvh] md:w-full">
+                  <ul className="flex h-[95dvh] w-[90vw] flex-col gap-3 overflow-y-scroll px-4 max-md:justify-end max-md:py-4 md:h-[90dvh] md:w-full">
                     {MenuLinks.map(({ label, icon }, idx) => (
                       <li
                         key={idx}
@@ -176,10 +178,10 @@ export default function Menu() {
                             <li
                               key={idx}
                               className={cn(
-                                "flex w-fit items-center justify-center rounded-full bg-[#353336]",
+                                "flex w-fit items-center justify-center rounded-full border border-primary/5 bg-secondary/30 backdrop-blur-lg",
                                 "h-10 px-4 text-sm font-medium sm:h-8 sm:px-3 sm:text-xs",
-                                idx === 0 &&
-                                  "border border-[var(--border-color)] bg-[var(--bg-color)] font-semibold text-[var(--text-color)] backdrop-blur-sm"
+                                idx === 0 && "bg-primary text-background"
+                                //   "border border-[var(--border-color)] bg-[var(--bg-color)] font-semibold text-[var(--text-color)] backdrop-blur-sm"
                               )}
                               style={
                                 {
