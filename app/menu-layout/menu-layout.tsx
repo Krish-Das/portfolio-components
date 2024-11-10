@@ -7,7 +7,7 @@ import {
   MaterialSymbolsInfoOutline,
   MaterialSymbolsMail,
   MaterialSymbolsRectangleRounded,
-} from "@/app/components/icons/material-symbols";
+} from "@/components/icons/material-symbols";
 import { cn } from "@/lib/utils";
 import { RawLogo } from "./raw-logo";
 import { MenuLinks } from "@/lib/menu-links";

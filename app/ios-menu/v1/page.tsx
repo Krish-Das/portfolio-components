@@ -1,5 +1,5 @@
 import Navigation from "@/app/components/fullscreen-menu/Navigation";
-import { SystemUiconsDisplayAlt } from "@/app/components/icons/system-ui";
+import { SystemUiconsDisplayAlt } from "@/components/icons/system-ui";
 import { Button } from "@/app/components/buttons/ButtonV2";
 
 export default function Page() {

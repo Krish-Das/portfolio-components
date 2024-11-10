@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/app/components/buttons/ButtonV2";
 // import { Button } from "react-aria-components";
-import { MaterialSymbolsRectangleRounded } from "@/app/components/icons/material-symbols";
+import { MaterialSymbolsRectangleRounded } from "@/components/icons/material-symbols";
 import { cn } from "@/lib/utils";
 import {
   AnimationSequence,

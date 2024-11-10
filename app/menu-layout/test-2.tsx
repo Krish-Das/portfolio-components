@@ -1,6 +1,6 @@
 import { Button } from "@/app/components/buttons/ButtonV2";
 // import { Button } from "@/components/ui/button";
-import { MaterialSymbolsRectangleRounded } from "../components/icons/material-symbols";
+import { MaterialSymbolsRectangleRounded } from "@/components/icons/material-symbols";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useEffect, useState } from "react";
 

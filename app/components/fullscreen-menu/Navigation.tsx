@@ -11,7 +11,7 @@ import {
   MaterialSymbolsRectangleRounded,
   MaterialSymbolsWorkOutlineSharp,
   MaterialSymbolsCasesOutline,
-} from "../icons/material-symbols";
+} from "@/components/icons/material-symbols";
 import { Button } from "@/app/components/buttons/ButtonV2";
 import { projects } from "@/lib/project-images";
 import { cn } from "@/lib/utils";

@@ -5,7 +5,7 @@ import { buttonVariants } from "@/app/components/buttons/ButtonV2";
 import {
   MaterialSymbolsArrowOutward,
   MaterialSymbolsRectangleRounded,
-} from "@/app/components/icons/material-symbols";
+} from "@/components/icons/material-symbols";
 import { cn } from "@/lib/utils";
 import { IoArrowForward, IoChevronForwardSharp } from "react-icons/io5";
 import { RawLogo } from "@/app/menu-layout/raw-logo";

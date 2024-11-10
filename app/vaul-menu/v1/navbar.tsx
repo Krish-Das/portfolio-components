@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/app/components/buttons/ButtonV2";
-import { MaterialSymbolsMail } from "@/app/components/icons/material-symbols";
+import { MaterialSymbolsMail } from "@/components/icons/material-symbols";
 import { RawLogo } from "@/app/menu-layout/raw-logo";
 import VaulSidebar from "./vaul-sidebar";
 

@@ -2,7 +2,7 @@
 
 import { Drawer } from "vaul";
 import { buttonVariants } from "@/app/components/buttons/ButtonV2";
-import { MaterialSymbolsRectangleRounded } from "@/app/components/icons/material-symbols";
+import { MaterialSymbolsRectangleRounded } from "@/components/icons/material-symbols";
 import MenuRight from "./menu-right";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";

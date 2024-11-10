@@ -2,7 +2,7 @@ import { Button } from "@/app/components/buttons/ButtonV2";
 import {
   MaterialSymbolsArrowOutward,
   MaterialSymbolsMail,
-} from "@/app/components/icons/material-symbols";
+} from "@/components/icons/material-symbols";
 import { MenuLinks } from "@/lib/menu-links";
 import { cn } from "@/lib/utils";
 import { projects } from "@/lib/project-images";
