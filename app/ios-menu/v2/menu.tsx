@@ -4,12 +4,15 @@ import { buttonVariants } from "@/app/components/buttons/ButtonV2"
 import {
   MaterialSymbolsMagnificationLarge,
   MaterialSymbolsRectangleRounded,
-} from "@/app/components/icons/material-symbols"
+} from "@/components/icons/material-symbols"
 import { transition } from "@/lib/animation-utils"
+import { MenuLinks } from "@/lib/menu-links"
+import { projects } from "@/lib/project-images"
 import { cn, debounce } from "@/lib/utils"
 import * as Dialog from "@radix-ui/react-dialog"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
+import { IoChevronForwardSharp } from "react-icons/io5"
 import useMeasure from "react-use-measure"
 
 export function useExitTransitionDelay(isOpen: boolean, delay: number = 500) {
@@ -97,12 +100,15 @@ export default function Menu() {
                 />
               </Dialog.Overlay>
 
-              <Dialog.Content className="menu__content container fixed inset-0 z-20 p-0 md:grid md:grid-cols-[2fr,1fr] md:place-items-center">
+              <Dialog.Content className="menu__content container fixed inset-0 z-20 gap-5 p-0 md:grid md:grid-cols-[2fr,1fr] md:place-items-center">
                 <div className="menu__thumbnail-wraper flex h-full w-full items-center justify-center max-md:absolute max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 md:static md:justify-end">
                   <motion.div
                     className={cn(
                       "menu__thumbnail-image h-[95dvh] w-[90vw] rounded-sm bg-[#3f3f46] md:h-[90dvh] md:w-[28rem]",
-                      "bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg')] bg-cover bg-center"
+                      "bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/6/f437193c9caf18281b6a67.jpg')] bg-cover bg-center"
+                      // 'https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg'
+                      // 'https://dr.savee-cdn.com/image-fallbacks/original/6/5/6506b84c19486e146dac5b.jpg'
+                      // 'https://dr.savee-cdn.com/things/6/7/2c06e23c9caf2d5afcf3ac.png'
                     )}
                     initial="close"
                     exit="close"
@@ -136,7 +142,60 @@ export default function Menu() {
 
                 {/* Menu links */}
                 <div className="menu__link-wraper relative grid h-full w-full place-items-center">
-                  <div className="h-[95dvh] w-[90vw] md:h-[90dvh] md:w-full" />
+                  <ul className="flex h-[95dvh] w-[90vw] flex-col gap-3 px-4 max-md:justify-end max-md:py-4 md:h-[90dvh] md:w-full">
+                    {MenuLinks.map(({ label, icon }, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-center gap-2.5 text-foreground/85 [&>svg:first-of-type]:text-foreground/80"
+                      >
+                        {icon}
+                        {label}
+                      </li>
+                    ))}
+                    <li className="mt-7 flex flex-col gap-3">
+                      <p className="flex items-center gap-2.5 font-medium [&>svg:first-of-type]:text-foreground/40">
+                        <IoChevronForwardSharp />
+                        Case studies
+                      </p>
+
+                      <ul className="flex flex-col gap-2 pl-5">
+                        {projects.map(({ label }, idx) => {
+                          const bgColor = "1 90% 38%"
+                          const borderColor = "3 85% 54%"
+                          const textColor = "11 100% 96%"
+
+                          // const bgColor = "241 26% 30%"
+                          // const borderColor = "241 21% 47%"
+                          // const textColor = "240 21% 95%"
+
+                          // const bgColor = "3 79% 26%"
+                          // const borderColor = "3 85% 54%"
+                          // const textColor = "11 100% 96%"
+
+                          return (
+                            <li
+                              key={idx}
+                              className={cn(
+                                "flex w-fit items-center justify-center rounded-full bg-[#353336]",
+                                "h-10 px-4 text-sm font-medium sm:h-8 sm:px-3 sm:text-xs",
+                                idx === 0 &&
+                                  "border border-[var(--border-color)] bg-[var(--bg-color)] font-semibold text-[var(--text-color)] backdrop-blur-sm"
+                              )}
+                              style={
+                                {
+                                  "--bg-color": `hsl(${bgColor} / 0.2)`,
+                                  "--border-color": `hsl(${borderColor} / 0.1)`,
+                                  "--text-color": `hsl(${textColor} / 1.0)`,
+                                } as React.CSSProperties
+                              }
+                            >
+                              {label}
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </li>
+                  </ul>
                 </div>
 
                 <Dialog.Close
