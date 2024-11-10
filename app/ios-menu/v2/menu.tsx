@@ -1,45 +1,45 @@
-"use client";
+"use client"
 
-import { buttonVariants } from "@/app/components/buttons/ButtonV2";
+import { buttonVariants } from "@/app/components/buttons/ButtonV2"
 import {
   MaterialSymbolsMagnificationLarge,
   MaterialSymbolsRectangleRounded,
-} from "@/app/components/icons/material-symbols";
-import { transition } from "@/lib/animation-utils";
-import { cn, debounce } from "@/lib/utils";
-import * as Dialog from "@radix-ui/react-dialog";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import useMeasure from "react-use-measure";
+} from "@/app/components/icons/material-symbols"
+import { transition } from "@/lib/animation-utils"
+import { cn, debounce } from "@/lib/utils"
+import * as Dialog from "@radix-ui/react-dialog"
+import { AnimatePresence, motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import useMeasure from "react-use-measure"
 
 export function useExitTransitionDelay(isOpen: boolean, delay: number = 500) {
-  const [shouldHaveExitDelay, setShouldHaveExitDelay] = useState(false);
+  const [shouldHaveExitDelay, setShouldHaveExitDelay] = useState(false)
 
   useEffect(() => {
     const scheduleExitDelay = debounce(() => {
-      setShouldHaveExitDelay(true);
-    }, delay);
+      setShouldHaveExitDelay(true)
+    }, delay)
 
     if (isOpen) {
-      scheduleExitDelay();
+      scheduleExitDelay()
     } else {
-      scheduleExitDelay.cancel();
-      setShouldHaveExitDelay(false);
+      scheduleExitDelay.cancel()
+      setShouldHaveExitDelay(false)
     }
 
     return () => {
-      scheduleExitDelay.cancel();
-    };
-  }, [isOpen, delay]);
+      scheduleExitDelay.cancel()
+    }
+  }, [isOpen, delay])
 
-  return shouldHaveExitDelay;
+  return shouldHaveExitDelay
 }
 
 export default function Menu() {
-  const [open, setOpen] = useState(false);
-  const shouldOverlayHaveExitDelay = useExitTransitionDelay(open, 700);
-  const [ref, bounds] = useMeasure();
-  const overlayExitDelay = 0.5;
+  const [open, setOpen] = useState(false)
+  const shouldOverlayHaveExitDelay = useExitTransitionDelay(open, 700)
+  const [ref, bounds] = useMeasure()
+  const overlayExitDelay = 0.5
 
   return (
     <>
@@ -48,7 +48,7 @@ export default function Menu() {
           autoFocus
           ref={ref}
           className={cn(
-            buttonVariants({ size: "icon", className: "bg-background/0" }),
+            buttonVariants({ size: "icon", className: "bg-background/0" })
           )}
         >
           <MaterialSymbolsRectangleRounded />
@@ -60,9 +60,7 @@ export default function Menu() {
               <Dialog.Overlay asChild>
                 <motion.div
                   key="menu-overlay"
-                  className={cn(
-                    "menu__overlay fixed z-20 bg-black/85 backdrop-blur-lg",
-                  )}
+                  className="menu__overlay fixed z-20 bg-black/85 backdrop-blur-lg"
                   initial="closed"
                   exit="closed"
                   animate="open"
@@ -99,12 +97,12 @@ export default function Menu() {
                 />
               </Dialog.Overlay>
 
-              <Dialog.Content className="menu__content fixed inset-0 z-20 container p-0 md:grid md:place-items-center md:grid-cols-[2fr,1fr]">
-                <div className="menu__thumbnail-wraper h-full w-full md:static max-md:absolute max-md:top-1/2 max-md:left-1/2 max-md:-translate-y-1/2 max-md:-translate-x-1/2 flex items-center md:justify-end justify-center">
+              <Dialog.Content className="menu__content container fixed inset-0 z-20 p-0 md:grid md:grid-cols-[2fr,1fr] md:place-items-center">
+                <div className="menu__thumbnail-wraper flex h-full w-full items-center justify-center max-md:absolute max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 md:static md:justify-end">
                   <motion.div
                     className={cn(
-                      "menu__thumbnail-image w-[90vw] md:w-[28rem] h-[95dvh] md:h-[90dvh] rounded-sm bg-[#3f3f46]",
-                      "bg-cover bg-center bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg')]",
+                      "menu__thumbnail-image h-[95dvh] w-[90vw] rounded-sm bg-[#3f3f46] md:h-[90dvh] md:w-[28rem]",
+                      "bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg')] bg-cover bg-center"
                     )}
                     initial="close"
                     exit="close"
@@ -137,8 +135,8 @@ export default function Menu() {
                 </div>
 
                 {/* Menu links */}
-                <div className="menu__link-wraper relative h-full w-full grid place-items-center">
-                  <div className="md:w-full w-[90vw] h-[95dvh] md:h-[90dvh]" />
+                <div className="menu__link-wraper relative grid h-full w-full place-items-center">
+                  <div className="h-[95dvh] w-[90vw] md:h-[90dvh] md:w-full" />
                 </div>
 
                 <Dialog.Close
@@ -146,9 +144,8 @@ export default function Menu() {
                   className={cn(
                     buttonVariants({
                       size: "icon",
-                      className: "bg-background/0",
-                    }),
-                    "absolute",
+                      className: "absolute bg-background/0",
+                    })
                   )}
                   style={{
                     top: bounds.top,
@@ -171,5 +168,5 @@ export default function Menu() {
         </AnimatePresence>
       </Dialog.Root>
     </>
-  );
+  )
 }
