@@ -47,9 +47,12 @@ export default function Menu() {
   const menuLinkEnterDelay = 0.8
   const casesEnterDelay = 1.47
 
-  const overlayExitDelay = 0.5 * 2.1
-  const thumbnailExitDelay = 0.6 // 0.3
-  const MenuLinkExitDuration = 0.6 // 0.6
+  // TODO: Rename this variable
+  const renameThis = 1.1
+  const overlayExitDelay = renameThis * 1.5 // 0.5 * 2.1
+  const thumbnailExitDelay = renameThis // 0.6
+  const MenuLinkExitDuration = 0.4 // 0.6
+  const exitStragger = 0.1
 
   return (
     <>
@@ -169,6 +172,7 @@ export default function Menu() {
                             filter: "blur(3px)",
                             transition: {
                               duration: MenuLinkExitDuration,
+                              delay: 0.55,
                             },
                           },
                           open: (idx) => ({
@@ -196,16 +200,17 @@ export default function Menu() {
                           filter: "blur(3px)",
                           transition: {
                             duration: MenuLinkExitDuration,
+                            delay: projects.length * exitStragger,
                           },
                         },
-                        open: (idx) => ({
+                        open: {
                           opacity: 1,
                           filter: "blur(0px)",
                           transition: {
                             duration: 0.85,
                             delay: casesEnterDelay,
                           },
-                        }),
+                        },
                       }}
                     >
                       <p className="flex items-center gap-2.5 font-medium [&>svg:first-of-type]:text-foreground/40">
@@ -254,6 +259,10 @@ export default function Menu() {
                                   filter: "blur(3px)",
                                   transition: {
                                     duration: MenuLinkExitDuration,
+                                    delay:
+                                      // TODO: Remove addition with 0
+                                      (projects.length - idx + 0) *
+                                      exitStragger,
                                   },
                                 }),
                                 open: (idx) => ({
