@@ -40,9 +40,16 @@ export function useExitTransitionDelay(isOpen: boolean, delay: number = 500) {
 
 export default function Menu() {
   const [open, setOpen] = useState(false)
-  const shouldOverlayHaveExitDelay = useExitTransitionDelay(open, 700)
+  const shouldHaveExitDelay = useExitTransitionDelay(open, 700)
   const [ref, bounds] = useMeasure()
-  const overlayExitDelay = 0.5
+
+  const thumbnailEnterDelay = 0.43
+  const menuLinkEnterDelay = 0.8
+  const casesEnterDelay = 1.47
+
+  const overlayExitDelay = 0.5 * 2.1
+  const thumbnailExitDelay = 0.6 // 0.3
+  const MenuLinkExitDuration = 0.6 // 0.6
 
   return (
     <>
@@ -64,8 +71,8 @@ export default function Menu() {
                 <motion.div
                   key="menu-overlay"
                   className="menu__overlay fixed z-20 bg-black/85 backdrop-blur-lg"
-                  initial="closed"
-                  exit="closed"
+                  initial="close"
+                  exit="close"
                   animate="open"
                   style={{
                     top: bounds.top,
@@ -75,7 +82,7 @@ export default function Menu() {
                     borderRadius: "30px",
                   }}
                   variants={{
-                    closed: {
+                    close: {
                       borderRadius: "30px",
                       top: bounds.top,
                       left: bounds.left,
@@ -83,9 +90,7 @@ export default function Menu() {
                       right: window.innerWidth - bounds.right,
                       transition: {
                         ...transition,
-                        delay: shouldOverlayHaveExitDelay
-                          ? overlayExitDelay
-                          : 0,
+                        delay: shouldHaveExitDelay ? overlayExitDelay : 0,
                       },
                     },
                     open: {
@@ -105,7 +110,7 @@ export default function Menu() {
                   <motion.div
                     className={cn(
                       "menu__thumbnail-image h-[95dvh] w-[90vw] rounded-sm bg-[#3f3f46] md:h-[90dvh] md:w-[28rem]",
-                      "bg-[url('https://dr.savee-cdn.com/image-fallbacks/original/6/7/290e653c9caf1f8beebecd.jpg')] bg-cover bg-center"
+                      "bg-[url('https://dr.savee-cdn.com/things/6/7/2c06e23c9caf2d5afcf3ac.png')] bg-cover bg-center"
                       // 'https://dr.savee-cdn.com/image-fallbacks/original/6/6/0fc00b6652caded38349ff.jpg'
                       // 'https://dr.savee-cdn.com/image-fallbacks/original/6/5/6506b84c19486e146dac5b.jpg'
                       // 'https://dr.savee-cdn.com/things/6/7/2c06e23c9caf2d5afcf3ac.png'
@@ -123,7 +128,11 @@ export default function Menu() {
                         y: -30,
                         scaleY: 1.05,
                         scaleX: 1.15,
-                        transition: { ...transition, duration: 1 },
+                        transition: {
+                          ...transition,
+                          duration: 1,
+                          delay: shouldHaveExitDelay ? thumbnailExitDelay : 0,
+                        },
                       },
                       open: {
                         opacity: 1,
@@ -135,7 +144,7 @@ export default function Menu() {
                         transition: {
                           ...transition,
                           duration: 0.85,
-                          delay: 0.43,
+                          delay: thumbnailEnterDelay,
                         },
                       },
                     }}
@@ -144,17 +153,61 @@ export default function Menu() {
 
                 {/* Menu links */}
                 <div className="menu__link-wraper relative grid h-full w-full place-items-center">
-                  <ul className="flex h-[95dvh] w-[90vw] flex-col gap-3 overflow-y-scroll px-4 max-md:justify-end max-md:py-4 md:h-[90dvh] md:w-full">
+                  {/* WARN: invalid className below: overflow-y-scrolls */}
+                  <ul className="overflow-y-scrolls flex h-[95dvh] w-[90vw] flex-col gap-3 px-4 max-md:justify-end max-md:py-4 md:h-[90dvh] md:w-full">
                     {MenuLinks.map(({ label, icon }, idx) => (
-                      <li
+                      <motion.li
                         key={idx}
                         className="flex items-center gap-2.5 text-foreground/85 [&>svg:first-of-type]:text-foreground/80"
+                        initial="close"
+                        exit="close"
+                        animate="open"
+                        custom={idx}
+                        variants={{
+                          close: {
+                            opacity: 0,
+                            filter: "blur(3px)",
+                            transition: {
+                              duration: MenuLinkExitDuration,
+                            },
+                          },
+                          open: (idx) => ({
+                            opacity: 1,
+                            filter: "blur(0px)",
+                            transition: {
+                              duration: 0.4,
+                              delay: menuLinkEnterDelay + idx * 0.1,
+                            },
+                          }),
+                        }}
                       >
                         {icon}
                         {label}
-                      </li>
+                      </motion.li>
                     ))}
-                    <li className="mt-7 flex flex-col gap-3">
+                    <motion.li
+                      className="mt-7 flex flex-col gap-3"
+                      initial="close"
+                      exit="close"
+                      animate="open"
+                      variants={{
+                        close: {
+                          opacity: 0,
+                          filter: "blur(3px)",
+                          transition: {
+                            duration: MenuLinkExitDuration,
+                          },
+                        },
+                        open: (idx) => ({
+                          opacity: 1,
+                          filter: "blur(0px)",
+                          transition: {
+                            duration: 0.85,
+                            delay: casesEnterDelay,
+                          },
+                        }),
+                      }}
+                    >
                       <p className="flex items-center gap-2.5 font-medium [&>svg:first-of-type]:text-foreground/40">
                         <IoChevronForwardSharp />
                         Case studies
@@ -175,8 +228,8 @@ export default function Menu() {
                           // const textColor = "11 100% 96%"
 
                           return (
-                            <li
-                              key={idx}
+                            <motion.li
+                              key={`Project ${idx + 1}`}
                               className={cn(
                                 "flex w-fit items-center justify-center rounded-full border border-primary/5 bg-secondary/30 backdrop-blur-lg",
                                 "h-10 px-4 text-sm font-medium sm:h-8 sm:px-3 sm:text-xs",
@@ -190,13 +243,36 @@ export default function Menu() {
                                   "--text-color": `hsl(${textColor} / 1.0)`,
                                 } as React.CSSProperties
                               }
+                              initial="close"
+                              exit="close"
+                              animate="open"
+                              custom={idx}
+                              variants={{
+                                close: (idx) => ({
+                                  opacity: 0,
+                                  y: idx * -2,
+                                  filter: "blur(3px)",
+                                  transition: {
+                                    duration: MenuLinkExitDuration,
+                                  },
+                                }),
+                                open: (idx) => ({
+                                  opacity: 1,
+                                  y: 0,
+                                  filter: "blur(0px)",
+                                  transition: {
+                                    duration: 1.3,
+                                    delay: casesEnterDelay + idx * 0.1,
+                                  },
+                                }),
+                              }}
                             >
                               {label}
-                            </li>
+                            </motion.li>
                           )
                         })}
                       </ul>
-                    </li>
+                    </motion.li>
                   </ul>
                 </div>
 
