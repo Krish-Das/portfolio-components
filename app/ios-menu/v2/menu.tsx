@@ -112,13 +112,20 @@ export default function Menu() {
                 <div className="menu__thumbnail-wraper flex h-full w-full items-center justify-center max-md:absolute max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 md:static md:justify-end">
                   <motion.div
                     className={cn(
-                      "menu__thumbnail-image h-[95dvh] w-[90vw] rounded bg-[#3f3f46] md:h-[90dvh] md:w-[28rem]",
-                      "bg-[url('https://i.pinimg.com/564x/80/55/7d/80557dd7dab76dae1fba8b284c496eee.jpg')] bg-cover bg-center"
+                      "menu__thumbnail-image h-[95dvh] w-[90vw] rounded bg-[#3f3f46] md:h-[90dvh] md:w-[28rem]"
+                      // "bg-[url('https://i.pinimg.com/564x/80/55/7d/80557dd7dab76dae1fba8b284c496eee.jpg')] bg-cover bg-center"
                       // 'https://dr.savee-cdn.com/image-fallbacks/original/6/7/290e653c9caf1f8beebecd.jpg'
                       // NOTE: Pinterest
                       // 'https://i.pinimg.com/originals/50/55/58/5055584aea8263540adebb2342c18d47.gif' // Chair gif <<
                       // 'https://i.pinimg.com/564x/80/55/7d/80557dd7dab76dae1fba8b284c496eee.jpg'
                     )}
+                    style={{
+                      background:
+                        "url(https://i.pinimg.com/564x/80/55/7d/80557dd7dab76dae1fba8b284c496eee.jpg) no-repeat center bottom/cover",
+                      maskImage:
+                        "linear-gradient(250deg, black 60%, black 70%, rgba(0, 0, 0, 0.1)",
+                      // "linear-gradient(to left bottom, black 60%, black 70%, transparent)"
+                    }}
                     initial="close"
                     exit="close"
                     animate="open"
