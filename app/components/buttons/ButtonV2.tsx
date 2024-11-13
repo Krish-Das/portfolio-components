@@ -1,24 +1,24 @@
-"use client";
+"use client"
 
-import { forwardRef, memo, useEffect } from "react";
-
-import { cn } from "@/lib/utils";
+import { forwardRef, memo, useEffect } from "react"
+import { cva, VariantProps } from "class-variance-authority"
+import { motion, MotionProps, useAnimationControls } from "framer-motion"
 import {
-  PressEvent as RacPressEvent,
   Button as RacButton,
   ButtonProps as RacButtonProps,
-} from "react-aria-components";
-import { motion, MotionProps, useAnimationControls } from "framer-motion";
-import { cva, VariantProps } from "class-variance-authority";
+  PressEvent as RacPressEvent,
+} from "react-aria-components"
+
+import { cn } from "@/lib/utils"
 
 type ButtonProps = VariantProps<typeof buttonVariants> &
   Omit<RacButtonProps, "onPress"> &
   MotionProps & {
     // eslint-disable-next-line no-unused-vars
-    onClick?: (e: RacPressEvent) => void;
+    onClick?: (e: RacPressEvent) => void
     // eslint-disable-next-line no-unused-vars
-    onPress?: (e: RacPressEvent) => void;
-  };
+    onPress?: (e: RacPressEvent) => void
+  }
 
 const buttonVariants = cva(
   [
@@ -55,8 +55,8 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
-);
+  }
+)
 
 const Button = memo(
   forwardRef<HTMLButtonElement, ButtonProps>(
@@ -72,28 +72,28 @@ const Button = memo(
         animate,
         ...props
       },
-      ref,
+      ref
     ) => {
-      const controls = useAnimationControls();
+      const controls = useAnimationControls()
       useEffect(() => {
-        controls.set({ background: "var(--bg-tap-end, #000)", scale: 1 });
-      }, [controls]);
+        controls.set({ background: "var(--bg-tap-end, #000)", scale: 1 })
+      }, [controls])
 
       function handleClick(e: RacPressEvent) {
-        if (onClick) onClick(e);
-        if (onPress) onPress(e);
+        if (onClick) onClick(e)
+        if (onPress) onPress(e)
       }
       function handlePressStart(e: RacPressEvent) {
-        controls.stop();
+        controls.stop()
         controls.set({
           background: "var(--bg-tap-start, #FFF)",
           scale: size === "icon" ? 0.96 : 1,
-        });
-        if (onPressStart) onPressStart(e);
+        })
+        if (onPressStart) onPressStart(e)
       }
       function handlePressEnd(e: RacPressEvent) {
-        controls.start({ background: "var(--bg-tap-end, #000)", scale: 1 });
-        if (onPressEnd) onPressEnd(e);
+        controls.start({ background: "var(--bg-tap-end, #000)", scale: 1 })
+        if (onPressEnd) onPressEnd(e)
       }
 
       return (
@@ -106,11 +106,11 @@ const Button = memo(
           {...props}
           ref={ref}
         />
-      );
-    },
-  ),
-);
-Button.displayName = "Button";
+      )
+    }
+  )
+)
+Button.displayName = "Button"
 
 /**
  *
@@ -118,9 +118,15 @@ Button.displayName = "Button";
  *
  **/
 const ForwardedButton = forwardRef<HTMLButtonElement, RacButtonProps>(
-  (props, ref) => <RacButton {...props} ref={ref} />,
-);
-ForwardedButton.displayName = "ForwardedButton";
-const MotionButton = motion.create(ForwardedButton);
+  (props, ref) => <RacButton {...props} ref={ref} />
+)
+ForwardedButton.displayName = "ForwardedButton"
+const MotionButton = motion.create(ForwardedButton)
 
-export { Button, ForwardedButton, buttonVariants, type ButtonProps };
+export {
+  Button,
+  ForwardedButton,
+  MotionButton,
+  buttonVariants,
+  type ButtonProps,
+}
