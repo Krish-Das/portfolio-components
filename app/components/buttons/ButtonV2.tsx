@@ -2,7 +2,12 @@
 
 import { forwardRef, memo, useEffect } from "react"
 import { cva, VariantProps } from "class-variance-authority"
-import { motion, MotionProps, useAnimationControls } from "framer-motion"
+import {
+  AnimationControls,
+  motion,
+  MotionProps,
+  useAnimationControls,
+} from "motion/react"
 import {
   Button as RacButton,
   ButtonProps as RacButtonProps,
@@ -18,6 +23,7 @@ type ButtonProps = VariantProps<typeof buttonVariants> &
     onClick?: (e: RacPressEvent) => void
     // eslint-disable-next-line no-unused-vars
     onPress?: (e: RacPressEvent) => void
+    controls?: AnimationControls
   }
 
 const buttonVariants = cva(
@@ -69,30 +75,36 @@ const Button = memo(
         onPressEnd,
         variant,
         size,
+        controls,
         animate,
         ...props
       },
       ref
     ) => {
-      const controls = useAnimationControls()
+      const internalControls = useAnimationControls()
+      const activeControls = controls || internalControls
+
       useEffect(() => {
-        controls.set({ background: "var(--bg-tap-end, #000)", scale: 1 })
-      }, [controls])
+        activeControls.set({ background: "var(--bg-tap-end, #000)", scale: 1 })
+      }, [activeControls])
 
       function handleClick(e: RacPressEvent) {
         if (onClick) onClick(e)
         if (onPress) onPress(e)
       }
       function handlePressStart(e: RacPressEvent) {
-        controls.stop()
-        controls.set({
+        activeControls.stop()
+        activeControls.set({
           background: "var(--bg-tap-start, #FFF)",
           scale: size === "icon" ? 0.96 : 1,
         })
         if (onPressStart) onPressStart(e)
       }
       function handlePressEnd(e: RacPressEvent) {
-        controls.start({ background: "var(--bg-tap-end, #000)", scale: 1 })
+        activeControls.start({
+          background: "var(--bg-tap-end, #000)",
+          scale: 1,
+        })
         if (onPressEnd) onPressEnd(e)
       }
 
@@ -102,7 +114,7 @@ const Button = memo(
           onPress={handleClick}
           onPressStart={handlePressStart}
           onPressEnd={handlePressEnd}
-          animate={animate || controls}
+          animate={animate || activeControls}
           {...props}
           ref={ref}
         />
