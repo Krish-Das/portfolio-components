@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import * as Dialog from "@radix-ui/react-dialog"
-import { useAnimation } from "motion/react"
+import { AnimatePresence, motion, useAnimation } from "motion/react"
 import { IoAddSharp, IoRemove } from "react-icons/io5"
 import useMeasure from "react-use-measure"
 
@@ -27,22 +27,49 @@ export default function TwitterFabAnimationV2() {
             <IoAddSharp />
           </Button>
         </Dialog.Trigger>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-sm" />
-          <Dialog.Content
-            className="fixed flex flex-col-reverse gap-2"
-            style={{
-              bottom: window.innerHeight - bounds.bottom,
-              left: bounds.left,
-            }}
-          >
-            <TransactionAddButton type="expense" open={open} />
-            <TransactionAddButton type="income" open={open} />
 
-            <Dialog.Title className="sr-only" />
-            <Dialog.Description className="sr-only" />
-          </Dialog.Content>
-        </Dialog.Portal>
+        <AnimatePresence>
+          {open && (
+            <Dialog.Portal forceMount>
+              <Dialog.Overlay
+                className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+                asChild
+              >
+                <motion.div
+                  key="transaction_add_overlay"
+                  animate="open"
+                  initial="close"
+                  exit="close"
+                  variants={{
+                    open: { opacity: 1 },
+                    close: { opacity: 0 },
+                  }}
+                />
+              </Dialog.Overlay>
+              <Dialog.Content
+                className="fixed flex flex-col-reverse gap-2"
+                style={{
+                  bottom: window.innerHeight - bounds.bottom,
+                  left: bounds.left,
+                }}
+              >
+                <TransactionAddButton
+                  type="expense"
+                  open={open}
+                  setOpen={setOpen}
+                />
+                <TransactionAddButton
+                  type="income"
+                  open={open}
+                  setOpen={setOpen}
+                />
+
+                <Dialog.Title className="sr-only" />
+                <Dialog.Description className="sr-only" />
+              </Dialog.Content>
+            </Dialog.Portal>
+          )}
+        </AnimatePresence>
       </Dialog.Root>
     </>
   )
@@ -51,29 +78,42 @@ export default function TwitterFabAnimationV2() {
 const TransactionAddButton = ({
   type,
   open,
+  setOpen,
 }: {
   type: "expense" | "income"
   open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
-  const controls = useAnimation()
-
   const buttonLabel = type === "expense" ? "Expense" : "Income"
   const buttonIcon = type === "expense" ? <IoRemove /> : <IoAddSharp />
   const factor = type === "expense" ? 0 : 1
+  const confirmationColor = type === "expense" ? "#ff453a" : "#45D483"
+
+  const controls = useAnimation()
 
   useEffect(() => {
     if (open) controls.start("open")
   }, [open, controls])
+
+  const handleClick = async () => {
+    await controls.start({
+      background: [null, confirmationColor],
+    })
+
+    setOpen(false)
+  }
 
   return (
     <Button
       size="iconlg"
       className="transaction__add-button relative origin-bottom"
       controls={controls}
+      onClick={handleClick}
       initial="close"
+      exit="close"
       variants={{
         open: { opacity: 1, y: 0, filter: "blur(0px)" },
-        close: { opacity: 0, y: 10 + factor * 10, filter: "blur(8px)" },
+        close: { opacity: 0, y: 10 * factor, filter: "blur(8px)" },
       }}
     >
       {buttonIcon}
