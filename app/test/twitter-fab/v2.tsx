@@ -19,7 +19,6 @@ export default function TwitterFabAnimationV2() {
         <Dialog.Trigger asChild>
           <Button
             size="iconlg"
-            variant="destructive"
             className={cn(open && "opacity-0")}
             ref={triggerRef}
             autoFocus
@@ -62,15 +61,6 @@ export default function TwitterFabAnimationV2() {
                   type="income"
                   open={open}
                   setOpen={setOpen}
-                  variants={{
-                    open: { opacity: 1, scale: 1, filter: "blur(0px)", y: 0 },
-                    close: {
-                      opacity: 0,
-                      scale: 0.6,
-                      filter: "blur(5px)",
-                      y: 10,
-                    },
-                  }}
                 />
 
                 <Dialog.Title className="sr-only" />
@@ -88,18 +78,18 @@ const TransactionAddButton = ({
   type,
   open,
   setOpen,
-  variants,
 }: {
   type: "expense" | "income"
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  variants?: Variants
 }) => {
   const isButtonForExpense = type === "expense"
   const buttonLabel = isButtonForExpense ? "Expense" : "Income"
   const buttonIcon = isButtonForExpense ? <IoRemove /> : <IoAddSharp />
   const confirmationColor = isButtonForExpense ? "#FF453A" : "#45D483"
-  const factor = isButtonForExpense ? 0 : 1
+  const buttonId = isButtonForExpense
+    ? "transaction__add-expense"
+    : "transaction__add-income"
 
   const controls = useAnimation()
 
@@ -108,64 +98,102 @@ const TransactionAddButton = ({
   }, [open, controls])
 
   const handleClick = async () => {
+    controls.set("open")
     await controls.start({
-      background: [null, confirmationColor],
+      background: [null, confirmationColor, "var(--bg-tap-end)"],
+      transition: { duration: 0.5 },
     })
 
     setOpen(false)
   }
 
-  return (
-    <Button
-      size="iconlg"
-      variant={isButtonForExpense ? "destructive" : "default"}
-      className="transaction__add-button relative origin-bottom"
-      controls={controls}
-      onClick={handleClick}
-      initial="close"
-      exit="close"
-      variants={{
-        open: { background: "#353336", ...variants?.open },
-        close: { background: "var(--bg-tap-end, #353336)", ...variants?.close },
-      }}
-    >
-      <motion.span
-        className="relative opacity-35"
-        animate="open"
-        initial="close"
-        exit="close"
-        variants={{
-          open: { opacity: 0, scale: 0, filter: "blur(8px)" },
-          close: { opacity: 1, scale: 1, filter: "blur(0px)" },
-        }}
-      >
-        <IoAddSharp />
-      </motion.span>
+  const variants: Variants | undefined = isButtonForExpense
+    ? undefined
+    : {
+        open: { opacity: 1, scale: 1, filter: "blur(0px)", y: 0 },
+        close: {
+          opacity: 0,
+          scale: 0.6,
+          filter: "blur(5px)",
+          y: 10,
+        },
+      }
 
-      <motion.span
-        className="absolute"
-        animate="open"
+  const iconVariants = {
+    hidden: { opacity: 0, scale: 0, filter: "blur(8px)", rotate: 45 },
+    visible: { opacity: 1, scale: 1, filter: "blur(0px)", rotate: 0 },
+  } satisfies Variants
+
+  return (
+    <>
+      <Button
+        id={buttonId}
+        size="iconlg"
+        className="transaction__add-button relative origin-bottom"
+        controls={controls}
         initial="close"
         exit="close"
-        variants={{
-          open: { opacity: 1, scale: 1, filter: "blur(0px)" },
-          close: { opacity: 0, scale: 0, filter: "blur(8px)" },
-        }}
+        variants={variants}
+        onClick={handleClick}
       >
-        {buttonIcon}
-      </motion.span>
-      <motion.span
-        className="absolute left-0 top-1/2 -translate-x-[calc(100%+0.75rem)] -translate-y-1/2 text-base font-medium"
-        animate="open"
-        initial="close"
-        exit="close"
-        variants={{
-          open: { opacity: 1, filter: "blur(0px)" },
-          close: { opacity: 0, filter: "blur(8px)" },
-        }}
-      >
-        {buttonLabel}
-      </motion.span>
-    </Button>
+        <motion.span
+          className="relative"
+          animate="open"
+          initial="close"
+          exit="close"
+          variants={{
+            open: iconVariants.visible,
+            close: iconVariants.hidden,
+          }}
+        >
+          {buttonIcon}
+        </motion.span>
+
+        <motion.label
+          htmlFor={buttonId}
+          className="absolute left-0 top-1/2 origin-right text-base font-medium"
+          style={{
+            x: "calc((100% + 0.75rem) * -1)",
+            y: "-50%",
+          }}
+          animate="open"
+          initial="close"
+          exit="close"
+          variants={{
+            open: {
+              opacity: 1,
+              x: "calc((100% + 0.75rem) * -1)",
+              scale: 1,
+              filter: "blur(0px)",
+              transition: { delay: 0.1 },
+            },
+            close: {
+              opacity: 0,
+              x: "calc((100% + 0.5rem) * -1)",
+              scale: 0.3,
+              filter: "blur(5px)",
+            },
+          }}
+          onClick={handleClick}
+        >
+          {buttonLabel}
+        </motion.label>
+
+        {isButtonForExpense && (
+          <motion.span
+            className="absolute"
+            animate="open"
+            initial="close"
+            exit="close"
+            variants={{
+              open: iconVariants.hidden,
+              close: iconVariants.visible,
+            }}
+          >
+            <IoAddSharp />
+          </motion.span>
+        )}
+      </Button>
+    </>
   )
 }
