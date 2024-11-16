@@ -5,6 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import { AnimatePresence, motion, useAnimation, Variants } from "motion/react"
 import { IoAddSharp, IoRemove } from "react-icons/io5"
 import useMeasure from "react-use-measure"
+import { Drawer } from "vaul"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/app/components/buttons/ButtonV2"
@@ -12,6 +13,12 @@ import { Button } from "@/app/components/buttons/ButtonV2"
 export default function TwitterFabAnimationV2() {
   const [triggerRef, bounds] = useMeasure()
   const [open, setOpen] = useState(false)
+  const [isDrawerOpen, setDrawerOpen] = useState(false)
+
+  function afterClick() {
+    setOpen(false)
+    setDrawerOpen(true)
+  }
 
   return (
     <>
@@ -55,12 +62,12 @@ export default function TwitterFabAnimationV2() {
                 <TransactionAddButton
                   type="expense"
                   open={open}
-                  setOpen={setOpen}
+                  afterClick={afterClick}
                 />
                 <TransactionAddButton
                   type="income"
                   open={open}
-                  setOpen={setOpen}
+                  afterClick={afterClick}
                 />
 
                 <Dialog.Title className="sr-only" />
@@ -70,6 +77,18 @@ export default function TwitterFabAnimationV2() {
           )}
         </AnimatePresence>
       </Dialog.Root>
+
+      <Drawer.Root open={isDrawerOpen} onOpenChange={setDrawerOpen}>
+        <Drawer.Portal>
+          <Drawer.Overlay className="fixed inset-0 bg-black/40" />
+          <Drawer.Content className="fixed bottom-0 left-0 right-0 h-fit bg-gray-100 outline-none">
+            <div className="h-dvh bg-white p-4">
+              <Drawer.Title />
+              <Drawer.Description />
+            </div>
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
     </>
   )
 }
@@ -77,11 +96,11 @@ export default function TwitterFabAnimationV2() {
 const TransactionAddButton = ({
   type,
   open,
-  setOpen,
+  afterClick,
 }: {
   type: "expense" | "income"
   open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  afterClick: () => void
 }) => {
   const isButtonForExpense = type === "expense"
   const buttonLabel = isButtonForExpense ? "Expense" : "Income"
@@ -103,8 +122,7 @@ const TransactionAddButton = ({
       background: [null, confirmationColor, "var(--bg-tap-end)"],
       transition: { duration: 0.5 },
     })
-
-    setOpen(false)
+    afterClick()
   }
 
   const variants: Variants | undefined = isButtonForExpense
