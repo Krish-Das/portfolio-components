@@ -120,7 +120,7 @@ const TransactionAddButton = ({
     controls.set("open")
     await controls.start({
       background: [null, confirmationColor, "var(--bg-tap-end)"],
-      transition: { duration: 0.5 },
+      transition: { duration: 0.3 },
     })
     afterClick()
   }
@@ -128,12 +128,21 @@ const TransactionAddButton = ({
   const variants: Variants | undefined = isButtonForExpense
     ? undefined
     : {
-        open: { opacity: 1, scale: 1, filter: "blur(0px)", y: 0 },
+        open: {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          y: 0,
+          pointerEvents: "auto",
+          touchAction: "auto",
+        },
         close: {
           opacity: 0,
           scale: 0.6,
           filter: "blur(5px)",
           y: 10,
+          pointerEvents: "none",
+          touchAction: "none",
         },
       }
 
