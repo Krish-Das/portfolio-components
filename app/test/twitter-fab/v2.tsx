@@ -117,11 +117,15 @@ const TransactionAddButton = ({
   }, [open, controls])
 
   const handleClick = async () => {
-    controls.set("open")
-    await controls.start({
-      background: [null, confirmationColor, "var(--bg-tap-end)"],
-      transition: { duration: 0.3 },
-    })
+    await Promise.all([
+      // controls.set("open"),
+      controls.start("open", { duration: 0.05 }),
+      controls.start({
+        background: [null, confirmationColor, "var(--bg-tap-end)"],
+        transition: { duration: 0.3 },
+      }),
+    ])
+
     afterClick()
   }
 
