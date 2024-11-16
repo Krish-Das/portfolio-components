@@ -1,6 +1,6 @@
 import { IoEllipse, IoRemove } from "react-icons/io5"
 
-import { TwitterFabAnimationV3 } from "../twitter-fab"
+import { TwitterFabAnimationV2 } from "../twitter-fab"
 
 export default function FloatingNav() {
   return (
@@ -11,7 +11,7 @@ export default function FloatingNav() {
         <IoRemove className="text-3xl" />
         <IoEllipse />
       </div>
-      <TwitterFabAnimationV3 />
+      <TwitterFabAnimationV2 />
     </div>
   )
 }
