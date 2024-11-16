@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { motion, Variants } from "motion/react"
 import { DialogTrigger, Modal, ModalOverlay } from "react-aria-components"
 import { IoAddSharp, IoRemoveSharp } from "react-icons/io5"
@@ -15,11 +16,13 @@ const iconVariants = {
 
 export default function TwitterFabAnimationV3() {
   const [triggerRef, bounds] = useMeasure()
+  const [isOpen, setOpen] = useState(false)
+
   const buttonStyles = buttonVariants({ size: "iconlg" })
 
   return (
     <>
-      <DialogTrigger>
+      <DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
         <Button size="iconlg" ref={triggerRef} autoFocus>
           <IoAddSharp />
         </Button>
