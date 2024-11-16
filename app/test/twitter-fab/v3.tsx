@@ -8,7 +8,9 @@ import useMeasure from "react-use-measure"
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/app/components/buttons/ButtonV2"
+import { MotionModalOverlay } from "@/app/components/MotionComponents"
 
+type AnimationState = "unmounted" | "hidden" | "visible"
 const iconVariants = {
   hidden: { opacity: 0, scale: 0, filter: "blur(8px)", rotate: 45 },
   visible: { opacity: 1, scale: 1, filter: "blur(0px)", rotate: 0 },
@@ -17,17 +19,32 @@ const iconVariants = {
 export default function TwitterFabAnimationV3() {
   const [triggerRef, bounds] = useMeasure()
   const [isOpen, setOpen] = useState(false)
+  const [animation, setAnimation] = useState<AnimationState>("unmounted")
 
   const buttonStyles = buttonVariants({ size: "iconlg" })
 
   return (
     <>
-      <DialogTrigger isOpen={isOpen} onOpenChange={setOpen}>
+      <DialogTrigger
+        onOpenChange={(isOpen) => setAnimation(isOpen ? "visible" : "hidden")}
+      >
         <Button size="iconlg" ref={triggerRef} autoFocus>
           <IoAddSharp />
         </Button>
-        <ModalOverlay
+        <MotionModalOverlay
           className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+          isExiting={animation === "hidden"}
+          onAnimationComplete={(animation) => {
+            setAnimation((a) =>
+              animation === "hidden" && a === "hidden" ? "unmounted" : a
+            )
+          }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1 },
+          }}
+          initial="hidden"
+          animate={animation}
           isDismissable
         >
           <Modal
@@ -44,12 +61,11 @@ export default function TwitterFabAnimationV3() {
             <button className={cn(buttonStyles)} autoFocus>
               <motion.span
                 className="relative"
-                animate="open"
-                initial="close"
-                exit="close"
+                initial="hidden"
+                animate={animation}
                 variants={{
-                  open: iconVariants.visible,
-                  close: iconVariants.hidden,
+                  visible: iconVariants.visible,
+                  hidden: iconVariants.hidden,
                 }}
               >
                 <IoRemoveSharp />
@@ -57,12 +73,11 @@ export default function TwitterFabAnimationV3() {
 
               <motion.span
                 className="absolute"
-                animate="open"
-                initial="close"
-                exit="close"
+                initial="hidden"
+                animate={animation}
                 variants={{
-                  open: iconVariants.hidden,
-                  close: iconVariants.visible,
+                  visible: iconVariants.hidden,
+                  hidden: iconVariants.visible,
                 }}
               >
                 <IoAddSharp />
@@ -75,12 +90,11 @@ export default function TwitterFabAnimationV3() {
              **/}
             <motion.button
               className={cn(buttonStyles)}
-              animate="open"
-              initial="close"
-              exit="close"
+              initial="hidden"
+              animate={animation}
               variants={{
-                open: { opacity: 1, scale: 1, filter: "blur(0px)", y: 0 },
-                close: {
+                visible: { opacity: 1, scale: 1, filter: "blur(0px)", y: 0 },
+                hidden: {
                   opacity: 0,
                   scale: 0.6,
                   filter: "blur(5px)",
@@ -91,7 +105,7 @@ export default function TwitterFabAnimationV3() {
               <IoAddSharp />
             </motion.button>
           </Modal>
-        </ModalOverlay>
+        </MotionModalOverlay>
       </DialogTrigger>
     </>
   )
